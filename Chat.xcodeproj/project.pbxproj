@@ -283,7 +283,7 @@
 		3A606C7921566A4C00D62DC8 /* Debug */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3JC9RT8Q8;
 				INFOPLIST_FILE = Chat/Info.plist;
@@ -302,7 +302,7 @@
 		3A606C7A21566A4C00D62DC8 /* Release */ = {
 			isa = XCBuildConfiguration;
 			buildSettings = {
-				ASSETCATALOG_COMPILER_APPICON_NAME = AppIcon;
+				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3JC9RT8Q8;
 				INFOPLIST_FILE = Chat/Info.plist;
