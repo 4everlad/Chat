@@ -13,7 +13,7 @@ class LoggingLifeCycle {
     static var previousState =  UIApplication.shared.applicationState
     static var currentState =  UIApplication.shared.applicationState
     
-    static var isLogging = true // turns logging in/off
+    static var isLogging = true // turns logging on/off
     
     static func logStateAndMethod(methodName: String = #function){
         if isLogging {
