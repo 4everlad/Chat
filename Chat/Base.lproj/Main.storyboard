@@ -99,6 +99,7 @@
                     </view>
                     <connections>
                         <outlet property="editButton" destination="PcU-mf-dr7" id="PLl-dA-Mge"/>
+                        <outlet property="imagePicked" destination="70D-qh-vqf" id="fnf-84-Tbj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
