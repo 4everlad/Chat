@@ -10,52 +10,50 @@ import UIKit
 
 class LoggingLifeCycle {
     
-    static var previousState =  UIApplication.shared.applicationState
-    static var currentState =  UIApplication.shared.applicationState
+    var previousState = ""
     
     static var isLogging = true // turns logging on/off
     
-    static func logStateAndMethod(methodName: String = #function){
-        if isLogging {
-            var prevState: String
-            var curState: String
+    func logState() -> String {
+
+            var state: String
             
-            currentState =  UIApplication.shared.applicationState
-            
-            switch previousState {
+            switch UIApplication.shared.applicationState {
+                
             case .active:
-                prevState = "active"
+                state = "active"
             case .inactive:
-                prevState = "inactive"
+                state = "inactive"
             case .background:
-                prevState = "background"
+                state = "background"
                 
             }
-            
-            switch currentState {
-            case .active:
-                curState = "active"
-            case .inactive:
-                curState = "inactive"
-            case .background:
-                curState = "background"
-                
-            }
-            
-            print("Application moved from <\(prevState)> to <\(curState)>: <\(methodName)>")
-            
-            previousState = currentState
+        
+        return state
+    }
+    
+    func logMethod(methodName: String = #function) -> String {
+        let mName = methodName
+        return mName
+    }
+    
+    func printStateAndMethod() {
+        if LoggingLifeCycle.isLogging {
+            print("Application moved from <\(previousState)> to <\(logState())>: <\(logMethod())>")
         } else {
             print("Logging is off")
         }
     }
     
-    static func logMethod(methodName: String = #function) {
-        if isLogging {
-            print("ViewController method: <\(methodName)>")
+    func printMethod() {
+        if LoggingLifeCycle.isLogging {
+            print("ViewController method: <\(logMethod())>")
         } else {
             print("Logging is off")
         }
     }
     
+    init() {
+        previousState = logState()
+    }
 }

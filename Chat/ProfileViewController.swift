@@ -11,6 +11,8 @@ import UIKit
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
     
+    var log = LoggingLifeCycle()
+
     
     @IBOutlet weak var editButton: UIButton!
 
@@ -21,26 +23,26 @@ UINavigationControllerDelegate {
         
         let alertController = UIAlertController(title: "Выберите действие", message: "", preferredStyle: .actionSheet)
         
-        let setFromGallery = UIAlertAction(title: "Установить из галлереи", style: .default) { (action:UIAlertAction) in
-            self.openPhotoLibraryButton(sender: self);
+        let setFromPhotoLibrary = UIAlertAction(title: "Установить из галлереи", style: .default) { (action:UIAlertAction) in
+            self.setFromPhotoLibrary(sender: self);
         }
         
         let takePhoto = UIAlertAction(title: "Сделать фото", style: .default) { (action:UIAlertAction) in
-            self.openCameraButton(sender: self);
+            self.takePhoto(sender: self);
         }
         
         let cancel = UIAlertAction(title: "Cancel", style: .cancel) { (action:UIAlertAction) in
             print("You've pressed cancel");
         }
         
-        alertController.addAction(setFromGallery)
+        alertController.addAction(setFromPhotoLibrary)
         alertController.addAction(takePhoto)
         alertController.addAction(cancel)
         
         self.present(alertController, animated: true, completion: nil)
     }
     
-    @IBAction func openCameraButton(sender: AnyObject) {
+    @IBAction func takePhoto(sender: AnyObject) {
         if UIImagePickerController.isSourceTypeAvailable(.camera) {
             print("camera is available")
             let imagePicker = UIImagePickerController()
@@ -52,12 +54,12 @@ UINavigationControllerDelegate {
         else { print("camera is not available") }
     }
     
-    @IBAction func openPhotoLibraryButton(sender: AnyObject) {
+    @IBAction func setFromPhotoLibrary(sender: AnyObject) {
         if UIImagePickerController.isSourceTypeAvailable(.photoLibrary) {
             let imagePicker = UIImagePickerController()
             imagePicker.delegate = self
             imagePicker.sourceType = .photoLibrary;
-            imagePicker.allowsEditing = true
+            imagePicker.allowsEditing = false
             self.present(imagePicker, animated: true, completion: nil)
         }
     }
@@ -72,11 +74,22 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }
 
 
-//    convenience init() {
-//        self.init(nibName:nil, bundle:nil)
-//        print("editButton frame:\(editButton.layer.frame)")
-//    }
-    // init у View Controllerа не вызывается через Story Board
+    
+    required init?(coder aDecoder: NSCoder) {
+
+        
+        super.init(coder: aDecoder)
+
+        if let button = editButton {
+            print("coder editButton frame:\(button.layer.frame)")
+        } else {
+            print ("found nil while unwrapping")
+        }
+        
+        // на момент вызова init, кнопка еще не создана
+    }
+    
+
 
     override func viewDidLoad() {
         super.viewDidLoad()
@@ -85,7 +98,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         editButton.layer.borderWidth = 1.0
 
         
-        LoggingLifeCycle.logMethod()
+        log.printMethod()
         
         print("editButton frame:\(editButton.layer.frame)")
         
@@ -105,7 +118,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        LoggingLifeCycle.logMethod()
+        log.printMethod()
         print("editButton frame:\(editButton.layer.frame)")
         // frame отличается потому что метод viewDidAppear вызывается после того как Auto Layout выполнит свою работу, в то время как viewDidLoad до. Auto Layout динамически рассчитатывает размер и позицию view во View Controller.
     }

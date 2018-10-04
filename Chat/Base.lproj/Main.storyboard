@@ -21,7 +21,7 @@
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="70D-qh-vqf">
                                 <rect key="frame" x="16" y="20" width="288" height="287"/>
                                 <constraints>
-                                    <constraint firstAttribute="height" constant="287" id="kHU-MJ-tbG"/>
+                                    <constraint firstAttribute="width" secondItem="70D-qh-vqf" secondAttribute="height" multiplier="288:287" id="Hfu-5O-lsU"/>
                                 </constraints>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
