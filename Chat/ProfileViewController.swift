@@ -16,7 +16,7 @@ UINavigationControllerDelegate {
     
     @IBOutlet weak var editButton: UIButton!
 
-    @IBOutlet weak var imagePicked: UIImageView!
+    @IBOutlet weak var userImage: UIImageView!
     
     @IBAction func chooseImageProfile(_ sender: UIButton) {
         print("Choose Image Profile")
@@ -69,7 +69,7 @@ UINavigationControllerDelegate {
 let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         let image = info[convertFromUIImagePickerControllerInfoKey(UIImagePickerController.InfoKey.originalImage)] as! UIImage
-        imagePicked.image = image
+        userImage.image = image
         dismiss(animated:true, completion: nil)
     }
 
@@ -77,7 +77,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     required init?(coder aDecoder: NSCoder) {
 
-        
         super.init(coder: aDecoder)
 
         if let button = editButton {

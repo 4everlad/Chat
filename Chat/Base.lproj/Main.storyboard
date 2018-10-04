@@ -18,7 +18,7 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleToFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="70D-qh-vqf">
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="70D-qh-vqf">
                                 <rect key="frame" x="16" y="20" width="288" height="287"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="70D-qh-vqf" secondAttribute="height" multiplier="288:287" id="Hfu-5O-lsU"/>
@@ -99,7 +99,7 @@
                     </view>
                     <connections>
                         <outlet property="editButton" destination="PcU-mf-dr7" id="PLl-dA-Mge"/>
-                        <outlet property="imagePicked" destination="70D-qh-vqf" id="fnf-84-Tbj"/>
+                        <outlet property="userImage" destination="70D-qh-vqf" id="fnf-84-Tbj"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
