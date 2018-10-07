@@ -89,7 +89,6 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }
     
 
-
     override func viewDidLoad() {
         super.viewDidLoad()
 
@@ -123,16 +122,16 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     }
 
     override func viewWillLayoutSubviews() {
-//        LoggingLifeCycle.logMethod()
+        log.printMethod()
     }
     
     override func viewDidLayoutSubviews() {
-//        LoggingLifeCycle.logMethod()
+        log.printMethod()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-//        LoggingLifeCycle.logMethod()
+        log.printMethod()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

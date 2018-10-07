@@ -12,7 +12,7 @@ class LoggingLifeCycle {
     
     var previousState = ""
     
-    static var isLogging = true // turns logging on/off
+    static var isLogging = false // turns logging on/off
     
     func logState() -> String {
 
@@ -32,22 +32,19 @@ class LoggingLifeCycle {
         return state
     }
     
-    func logMethod(methodName: String = #function) -> String {
-        let mName = methodName
-        return mName
-    }
-    
-    func printStateAndMethod() {
+    func printStateAndMethod(methodName: String = #function) {
         if LoggingLifeCycle.isLogging {
-            print("Application moved from <\(previousState)> to <\(logState())>: <\(logMethod())>")
+            let mName = methodName
+            print("Application moved from <\(previousState)> to <\(logState())>: <\(mName)>")
         } else {
             print("Logging is off")
         }
     }
     
-    func printMethod() {
+    func printMethod(methodName: String = #function) {
         if LoggingLifeCycle.isLogging {
-            print("ViewController method: <\(logMethod())>")
+            let mName = methodName
+            print("ViewController method: <\(mName)>")
         } else {
             print("Logging is off")
         }
