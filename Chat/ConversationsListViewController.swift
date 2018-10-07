@@ -29,15 +29,16 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     func addConversations() {
         
         conversations.append(Conversation(name: "Иван", message: nil, date: Date(), online: true, hasUnreadMessages: false))
-        conversations.append(Conversation(name: "Лена", message: "Здорова", date: Date(), online: true, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Лена", message: "раз два три четыре пять", date: Date(), online: true, hasUnreadMessages: false))
         conversations.append(Conversation(name: "Пижон", message: "Здорова", date: Date(), online: true, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Бекмамбет", message: "Здравствуйте уважаемый Рамзан Кадыров", date: Date(), online: true, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Тристан", message: "Здорова", date: Date(), online: false, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Нэфигэ", message: "Здорова", date: Date(), online: false, hasUnreadMessages: true))
-//        conversations.append(Conversation(name: "Хачик", message: "Здорова", date: Date(), online: true, hasUnreadMessages: false))
-//        conversations.append(Conversation(name: "Махач", message: "Здорова", date: Date(), online: true, hasUnreadMessages: false))
-//        conversations.append(Conversation(name: "Приор", message: "Здорова", date: Date(), online: true, hasUnreadMessages: true))
-//        conversations.append(Conversation(name: "Ташкент", message: "Исэнмесез, халяр ничек?", date: Date(), online: true, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Бекмамбет", message: "Здравствуйте уважаемый", date: Date(), online: true, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Тристан", message: "ыварвраырваывра", date: Date(), online: false, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Валерка", message: "вататаыта", date: Date(), online: false, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Кебаб", message: nil, date: Date(), online: false, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Хабиб", message: "вввввв", date: Date(), online: true, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Приор", message: "ввава", date: Date(), online: true, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Ташкент", message: "Здравствуйте", date: Date(), online: true, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Анатолий", message: "Здравствуйте", date: Date(), online: true, hasUnreadMessages: true))
         
     }
     
