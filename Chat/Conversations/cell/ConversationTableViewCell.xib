@@ -38,8 +38,16 @@
                         <nil key="textColor"/>
                         <nil key="highlightedColor"/>
                     </label>
+                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Index" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="SE1-y0-yd7" userLabel="Index Label">
+                        <rect key="frame" x="262" y="11" width="42" height="21"/>
+                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                        <nil key="textColor"/>
+                        <nil key="highlightedColor"/>
+                    </label>
                 </subviews>
                 <constraints>
+                    <constraint firstItem="SE1-y0-yd7" firstAttribute="trailing" secondItem="H2p-sc-9uM" secondAttribute="trailingMargin" id="9e6-G2-qPn"/>
+                    <constraint firstItem="SE1-y0-yd7" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="topMargin" id="FtH-Tc-hE0"/>
                     <constraint firstItem="dUt-N2-ClQ" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="NMW-YK-G63"/>
                     <constraint firstItem="2Yv-lH-FcN" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" constant="16" id="P5G-ok-WTZ"/>
                     <constraint firstItem="2Yv-lH-FcN" firstAttribute="top" secondItem="dUt-N2-ClQ" secondAttribute="bottom" constant="18" id="SW0-aC-OFb"/>
@@ -49,7 +57,8 @@
             </tableViewCellContentView>
             <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
             <connections>
-                <outlet property="dateLabel" destination="mcQ-sx-Pzb" id="3UW-1V-2JV"/>
+                <outlet property="dateLabel" destination="SE1-y0-yd7" id="gil-NF-GPR"/>
+                <outlet property="indexLabel" destination="SE1-y0-yd7" id="qt0-XM-dW9"/>
                 <outlet property="messageLabel" destination="2Yv-lH-FcN" id="Lj2-J4-x1b"/>
                 <outlet property="nameLabel" destination="dUt-N2-ClQ" id="U1s-Gt-3KS"/>
             </connections>

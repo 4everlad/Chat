@@ -11,7 +11,7 @@ import UIKit
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate {
     
-    var log = LoggingLifeCycle()
+ //   var log = LoggingLifeCycle()
 
     
     @IBOutlet weak var editButton: UIButton!
@@ -96,7 +96,7 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         editButton.layer.borderWidth = 1.0
 
         
-        log.printMethod()
+ //       log.printMethod()
         
         print("editButton frame:\(editButton.layer.frame)")
         
@@ -116,22 +116,22 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
-        log.printMethod()
+//        log.printMethod()
         print("editButton frame:\(editButton.layer.frame)")
         // frame отличается потому что метод viewDidAppear вызывается после того как Auto Layout выполнит свою работу, в то время как viewDidLoad до. Auto Layout динамически рассчитатывает размер и позицию view во View Controller.
     }
 
     override func viewWillLayoutSubviews() {
-        log.printMethod()
+ //       log.printMethod()
     }
     
     override func viewDidLayoutSubviews() {
-        log.printMethod()
+ //       log.printMethod()
     }
     
     override func viewWillDisappear(_ animated: Bool) {
         super.viewWillDisappear(animated)
-        log.printMethod()
+//        log.printMethod()
     }
     
     override func viewDidDisappear(_ animated: Bool) {

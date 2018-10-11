@@ -20,11 +20,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     var historyConversations: [Conversation] {
         get {
-            return conversations.filter { $0.online == false }
+            return conversations.filter { $0.online == false && $0.message != nil }
         }
     }
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     
     func addConversations() {
         
@@ -100,6 +102,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         formatter.dateFormat = "HH:mm"
         cell.dateLabel.text = formatter.string(for: conversation.date)
         
+        cell.indexLabel.text = String(indexPath.row)
+        
         if conversation.online {
             let yellowColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 153/255.0, alpha: 1.0)
             cell.backgroundColor = yellowColor
@@ -111,8 +115,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         return cell
     }
-    
-    
     
 
     override func viewDidLoad() {
@@ -130,6 +132,50 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
+    
+//    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
+//        let cell = self.tableView.cellForRowAtIndexPath(indexPath)
+//        NSLog("did select and the text is \(cell?.textLabel?.text)")
+//    }
+    
+//    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
+//        let cell = self.tableView.cellForRow(at: indexPath)
+//    }
+
+    
+    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+        if segue.identifier == "ShowConversationSegue" {
+            if let indexPath = self.tableView.indexPathForSelectedRow {
+                print("\(indexPath.row)")
+                let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
+                print("cell:\(cell.messageLabel.text)")
+                print("name:\(cell.nameLabel.text)")
+                let cellTitle = cell.nameLabel.text
+                if let destinationViewController = segue.destination as? ConversationViewController {
+                    destinationViewController.cellTitle = cellTitle
+                }
+            }
+        }
+    }
+    
+//    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
+//
+//        // Get the index path from the cell that was tapped
+//        let indexPath = tableView.indexPathForSelectedRow
+//        // Get the Row of the Index Path and set as index
+//        let index = indexPath?.row
+//        // Get in touch with the DetailViewController
+//        let detailViewController = segue.destinationViewController as! DetailViewController
+//        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
+//        detailViewController.index = index
+//    }
+
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        self.performSegue(withIdentifier: "ShowConversationSegue", sender: nil)
+    }
+    
+    
     
 
     /*
