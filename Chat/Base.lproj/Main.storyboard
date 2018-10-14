@@ -18,13 +18,18 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lE3-N5-MdV">
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="lE3-N5-MdV">
                                 <rect key="frame" x="0.0" y="64" width="320" height="504"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="lE3-N5-MdV" firstAttribute="trailing" secondItem="jME-R4-5cH" secondAttribute="trailing" id="OqS-UU-skb"/>
+                            <constraint firstItem="lE3-N5-MdV" firstAttribute="bottom" secondItem="jME-R4-5cH" secondAttribute="bottom" id="SJX-1D-pdf"/>
+                            <constraint firstItem="lE3-N5-MdV" firstAttribute="top" secondItem="jME-R4-5cH" secondAttribute="top" id="afF-ip-VwN"/>
+                            <constraint firstItem="lE3-N5-MdV" firstAttribute="leading" secondItem="jME-R4-5cH" secondAttribute="leading" id="tX7-uX-CX3"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="jME-R4-5cH"/>
                     </view>
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="RMZ-ZE-WMe">
@@ -215,32 +220,65 @@
                                     </navigationItem>
                                 </items>
                             </navigationBar>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3M-y8-uwR">
-                                <rect key="frame" x="137" y="207" width="47" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Тема 1"/>
-                                <connections>
-                                    <action selector="selectTheme:" destination="wAm-IH-NfT" eventType="touchUpInside" id="0M2-HB-VSD"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwe-Ae-Qnn">
-                                <rect key="frame" x="136" y="269" width="49" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Тема 2"/>
-                                <connections>
-                                    <action selector="selectTheme:" destination="wAm-IH-NfT" eventType="touchUpInside" id="T6d-ye-ba5"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" fixedFrame="YES" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJ2-Is-Jw7">
-                                <rect key="frame" x="135" y="334" width="50" height="30"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                <state key="normal" title="Тема 3"/>
-                                <connections>
-                                    <action selector="selectTheme:" destination="wAm-IH-NfT" eventType="touchUpInside" id="kTl-pU-riq"/>
-                                </connections>
-                            </button>
+                            <stackView opaque="NO" contentMode="scaleToFill" axis="vertical" alignment="center" spacing="32" translatesAutoresizingMaskIntoConstraints="NO" id="aRp-RM-cIl">
+                                <rect key="frame" x="88" y="186" width="144" height="196"/>
+                                <subviews>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="C3M-y8-uwR">
+                                        <rect key="frame" x="0.0" y="0.0" width="144" height="44"/>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="w6y-ZT-txf"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Тема 1">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectTheme:" destination="wAm-IH-NfT" eventType="touchUpInside" id="0M2-HB-VSD"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="dwe-Ae-Qnn">
+                                        <rect key="frame" x="0.0" y="76" width="144" height="44"/>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="o8p-w9-ooa"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Тема 2">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectTheme:" destination="wAm-IH-NfT" eventType="touchUpInside" id="T6d-ye-ba5"/>
+                                        </connections>
+                                    </button>
+                                    <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="pJ2-Is-Jw7">
+                                        <rect key="frame" x="0.0" y="152" width="144" height="44"/>
+                                        <color key="backgroundColor" red="0.99999600649999998" green="1" blue="1" alpha="0.80000000000000004" colorSpace="custom" customColorSpace="sRGB"/>
+                                        <constraints>
+                                            <constraint firstAttribute="height" constant="44" id="ZA0-hy-rl3"/>
+                                        </constraints>
+                                        <fontDescription key="fontDescription" type="boldSystem" pointSize="15"/>
+                                        <state key="normal" title="Тема 3">
+                                            <color key="titleColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+                                        </state>
+                                        <connections>
+                                            <action selector="selectTheme:" destination="wAm-IH-NfT" eventType="touchUpInside" id="kTl-pU-riq"/>
+                                        </connections>
+                                    </button>
+                                </subviews>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="144" id="Gg9-vt-hIc"/>
+                                    <constraint firstItem="C3M-y8-uwR" firstAttribute="width" secondItem="aRp-RM-cIl" secondAttribute="width" id="Rg1-Ov-nn2"/>
+                                    <constraint firstItem="pJ2-Is-Jw7" firstAttribute="width" secondItem="aRp-RM-cIl" secondAttribute="width" id="etT-u6-4Qx"/>
+                                    <constraint firstItem="dwe-Ae-Qnn" firstAttribute="width" secondItem="aRp-RM-cIl" secondAttribute="width" id="mhp-Nw-0De"/>
+                                </constraints>
+                            </stackView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="aRp-RM-cIl" firstAttribute="centerX" secondItem="SO2-6R-Aa1" secondAttribute="centerX" id="09g-eQ-y6A"/>
+                            <constraint firstItem="aRp-RM-cIl" firstAttribute="centerY" secondItem="SO2-6R-Aa1" secondAttribute="centerY" id="Bxi-7M-Ly9"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="Bmw-8C-mox"/>
                     </view>
                     <connections>

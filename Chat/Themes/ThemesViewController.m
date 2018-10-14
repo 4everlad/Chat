@@ -17,16 +17,26 @@
 @property (retain, nonatomic) IBOutlet UIButton *theme2Button;
 @property (retain, nonatomic) IBOutlet UIButton *theme3Button;
 
+
+
 @end
 
 @implementation ThemesViewController
 
+- (UIColor*) currentTheme {
+    _currentTheme = [UIColor whiteColor];
+    return _currentTheme;
+}
+
 - (void)viewDidLoad {
     [super viewDidLoad];
+    
     
     _theme1Button.tag = 1;
     _theme2Button.tag = 2;
     _theme3Button.tag = 3;
+    
+    self.view.backgroundColor = _currentTheme;
     
     // Do any additional setup after loading the view.
 }

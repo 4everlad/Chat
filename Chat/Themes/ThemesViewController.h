@@ -16,6 +16,8 @@ NS_ASSUME_NONNULL_BEGIN
 
 @property (weak, nonatomic) id <ThemesViewControllerDelegate> delegate;
 
+@property (assign, nonatomic) UIColor *currentTheme;
+
 @end
 
 NS_ASSUME_NONNULL_END

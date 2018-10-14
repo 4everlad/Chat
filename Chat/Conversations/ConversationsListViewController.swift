@@ -124,6 +124,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         super.viewDidLoad()
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        self.view.backgroundColor = .red
         
         tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ConversationCell")
         // Do any additional setup after loading the view.
@@ -159,6 +160,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         if segue.identifier == "ShowThemesSegue" {
             if let destinationViewController = segue.destination as? ThemesViewController {
                 destinationViewController.delegate = self
+                if let theme = self.view.backgroundColor {
+                    destinationViewController.currentTheme = theme
+                }
+                
             }
         }
     }
