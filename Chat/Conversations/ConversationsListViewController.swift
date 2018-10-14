@@ -8,7 +8,8 @@
 
 import UIKit
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource  {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate  {
+    
     
     var conversations = [Conversation]()
     
@@ -133,50 +134,60 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         self.tableView.reloadData()
     }
     
-//    override func tableView(tableView: UITableView, didDeselectRowAtIndexPath indexPath: NSIndexPath) {
-//        let cell = self.tableView.cellForRowAtIndexPath(indexPath)
-//        NSLog("did select and the text is \(cell?.textLabel?.text)")
-//    }
-    
-//    override func tableView(_ tableView: UITableView, didDeselectRowAt indexPath: IndexPath) {
-//        let cell = self.tableView.cellForRow(at: indexPath)
-//    }
 
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowConversationSegue" {
             if let indexPath = self.tableView.indexPathForSelectedRow {
                 print("\(indexPath.row)")
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
-                print("cell:\(cell.messageLabel.text)")
-                print("name:\(cell.nameLabel.text)")
-                let cellTitle = cell.nameLabel.text
+                
+                var conversation: Conversation!
+                
+                if indexPath.section == 0 {
+                    conversation = onlineConversations[indexPath.row]
+                } else if indexPath.section == 1 {
+                    conversation = historyConversations[indexPath.row]
+                }
+                
+                let cellTitle = conversation.name
                 if let destinationViewController = segue.destination as? ConversationViewController {
                     destinationViewController.cellTitle = cellTitle
                 }
             }
         }
+        
+        if segue.identifier == "ShowThemesSegue" {
+            if let destinationViewController = segue.destination as? ThemesViewController {
+                destinationViewController.delegate = self
+            }
+        }
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: AnyObject?) {
-//
-//        // Get the index path from the cell that was tapped
-//        let indexPath = tableView.indexPathForSelectedRow
-//        // Get the Row of the Index Path and set as index
-//        let index = indexPath?.row
-//        // Get in touch with the DetailViewController
-//        let detailViewController = segue.destinationViewController as! DetailViewController
-//        // Pass on the data to the Detail ViewController by setting it's indexPathRow value
-//        detailViewController.index = index
-//    }
 
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         self.performSegue(withIdentifier: "ShowConversationSegue", sender: nil)
     }
     
+    func logThemeChanging(selectedTheme: UIColor) {
+        
+        switch selectedTheme {
+        case .red:
+            print("selected theme: red")
+        case .green:
+            print("selected theme: green")
+        case .blue:
+            print("selected theme: blue")
+        default:
+            print("selected theme: wrong value")
+        }
+    
+    }
     
     
+    func themesViewController(_ controller: ThemesViewController!, didSelectTheme selectedTheme: UIColor!) {
+        self.view.backgroundColor = selectedTheme;
+        self.logThemeChanging(selectedTheme: selectedTheme)
+    }
 
     /*
     // MARK: - Navigation

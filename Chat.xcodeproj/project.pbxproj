@@ -19,6 +19,8 @@
 		3A719252216BB7B20038FC7D /* ToMessageTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719250216BB7B20038FC7D /* ToMessageTableViewCell.swift */; };
 		3A719253216BB7B20038FC7D /* ToMessageTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3A719251216BB7B20038FC7D /* ToMessageTableViewCell.xib */; };
 		3A719255216BBD2B0038FC7D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719254216BBD2B0038FC7D /* Message.swift */; };
+		3A719259216F90440038FC7D /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A719258216F90440038FC7D /* ThemesViewController.m */; };
+		3A71925E2170AA160038FC7D /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A71925D2170AA160038FC7D /* Themes.m */; };
 		3AF14FC821678FA7004A3C87 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */; };
 		3AF14FC921678FA7004A3C87 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */; };
 		3AF14FCD2168883A004A3C87 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */; };
@@ -40,6 +42,12 @@
 		3A719250216BB7B20038FC7D /* ToMessageTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ToMessageTableViewCell.swift; sourceTree = "<group>"; };
 		3A719251216BB7B20038FC7D /* ToMessageTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ToMessageTableViewCell.xib; sourceTree = "<group>"; };
 		3A719254216BBD2B0038FC7D /* Message.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Message.swift; sourceTree = "<group>"; };
+		3A719256216F90440038FC7D /* Chat-Bridging-Header.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = "Chat-Bridging-Header.h"; sourceTree = "<group>"; };
+		3A719257216F90440038FC7D /* ThemesViewController.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewController.h; sourceTree = "<group>"; };
+		3A719258216F90440038FC7D /* ThemesViewController.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = ThemesViewController.m; sourceTree = "<group>"; };
+		3A71925C216FDEB40038FC7D /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
+		3A71925D2170AA160038FC7D /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
+		3A71925F2170B5970038FC7D /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -76,6 +84,7 @@
 		3A606C6821566A4900D62DC8 /* Chat */ = {
 			isa = PBXGroup;
 			children = (
+				3A71926021725A4D0038FC7D /* Themes */,
 				3A71924C216BB75A0038FC7D /* Messages */,
 				3A71924A216BB7130038FC7D /* Conversations */,
 				3A606C6921566A4900D62DC8 /* AppDelegate.swift */,
@@ -85,6 +94,7 @@
 				3A606C7221566A4C00D62DC8 /* LaunchScreen.storyboard */,
 				3A606C7521566A4C00D62DC8 /* Info.plist */,
 				3A58C97121590BE10075BADA /* LoggingLifeCycle.swift */,
+				3A719256216F90440038FC7D /* Chat-Bridging-Header.h */,
 			);
 			path = Chat;
 			sourceTree = "<group>";
@@ -127,6 +137,18 @@
 				3A719251216BB7B20038FC7D /* ToMessageTableViewCell.xib */,
 			);
 			path = cell;
+			sourceTree = "<group>";
+		};
+		3A71926021725A4D0038FC7D /* Themes */ = {
+			isa = PBXGroup;
+			children = (
+				3A71925C216FDEB40038FC7D /* Themes.h */,
+				3A71925D2170AA160038FC7D /* Themes.m */,
+				3A71925F2170B5970038FC7D /* ThemesViewControllerDelegate.h */,
+				3A719257216F90440038FC7D /* ThemesViewController.h */,
+				3A719258216F90440038FC7D /* ThemesViewController.m */,
+			);
+			path = Themes;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -213,7 +235,9 @@
 				3A719248216BB7090038FC7D /* FromMessageTableViewCell.swift in Sources */,
 				3A719255216BBD2B0038FC7D /* Message.swift in Sources */,
 				3A606C6C21566A4900D62DC8 /* ProfileViewController.swift in Sources */,
+				3A71925E2170AA160038FC7D /* Themes.m in Sources */,
 				3A606C6A21566A4900D62DC8 /* AppDelegate.swift in Sources */,
+				3A719259216F90440038FC7D /* ThemesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -357,6 +381,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3JC9RT8Q8;
 				INFOPLIST_FILE = Chat/Info.plist;
@@ -367,6 +393,8 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bakulin.Chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chat/Chat-Bridging-Header.h";
+				SWIFT_OPTIMIZATION_LEVEL = "-Onone";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};
@@ -376,6 +404,8 @@
 			isa = XCBuildConfiguration;
 			buildSettings = {
 				ASSETCATALOG_COMPILER_APPICON_NAME = "AppIcon-1";
+				CLANG_ENABLE_MODULES = YES;
+				CLANG_ENABLE_OBJC_ARC = NO;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_TEAM = P3JC9RT8Q8;
 				INFOPLIST_FILE = Chat/Info.plist;
@@ -386,6 +416,7 @@
 				);
 				PRODUCT_BUNDLE_IDENTIFIER = com.bakulin.Chat;
 				PRODUCT_NAME = "$(TARGET_NAME)";
+				SWIFT_OBJC_BRIDGING_HEADER = "Chat/Chat-Bridging-Header.h";
 				SWIFT_VERSION = 4.2;
 				TARGETED_DEVICE_FAMILY = 1;
 			};

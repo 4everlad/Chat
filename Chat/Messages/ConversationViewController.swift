@@ -12,6 +12,8 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     var cellTitle: String?
     
+    var message: String?
+    
     var messages = [Message]()
     
     func addConversations() {
