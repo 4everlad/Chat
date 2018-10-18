@@ -56,7 +56,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         date = inFormatter.date(from: inStr)!
         conversations.append(Conversation(name: "Ташкент", message: "Здравствуйте", date: date, online: true, hasUnreadMessages: true))
         conversations.append(Conversation(name: "Анатолий", message: "Здравствуйте", date: Date(), online: true, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Илон", message: "С пацанами ракету вчера взорвали", date: Date(), online: true, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Илон", message: "Ракету вчера взорвали", date: Date(), online: true, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Бот", message: "здрасте", date: Date(), online: true, hasUnreadMessages: false))
         
         conversations.append(Conversation(name: "Тристан", message: "ыварвраырваывра", date: Date(), online: false, hasUnreadMessages: true))
         conversations.append(Conversation(name: "Валерка", message: "вататаыта", date: Date(), online: false, hasUnreadMessages: true))
@@ -67,13 +68,11 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         conversations.append(Conversation(name: "Юлия", message: "Приветствую, записываемся на татауировочки", date: Date(), online: false, hasUnreadMessages: false))
         conversations.append(Conversation(name: "Ринат", message: "Вот шлем себе купил", date: Date(), online: false, hasUnreadMessages: true))
         conversations.append(Conversation(name: "Клавдия", message: "Хлеба сходи купи", date: Date(), online: false, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Лидия", message: "122323232323232", date: Date(), online: false, hasUnreadMessages: true))
     }
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        print(conversations.count)
-//        return conversations.count
-        
         if section == 0 {
             return onlineConversations.count
         }
@@ -140,45 +139,69 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         self.tableView.reloadData()
     }
     
-    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-        if segue.identifier == "ShowConversationSegue" {
-            if let indexPath = self.tableView.indexPathForSelectedRow {
-                print("\(indexPath.row)")
-                
-                var conversation: Conversation!
-                
-                if indexPath.section == 0 {
-                    conversation = onlineConversations[indexPath.row]
-                } else if indexPath.section == 1 {
-                    conversation = historyConversations[indexPath.row]
-                }
-                
-                let cellTitle = conversation.name
-                if let destinationViewController = segue.destination as? ConversationViewController {
-                    destinationViewController.cellTitle = cellTitle
-                }
-            }
+//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+//        if segue.identifier == "ShowConversationSegue" {
+//            if let indexPath = self.tableView.indexPathForSelectedRow {
+//                print("\(indexPath.row)")
+//
+//                var conversation: Conversation!
+//
+//                if indexPath.section == 0 {
+//                    conversation = onlineConversations[indexPath.row]
+//                } else if indexPath.section == 1 {
+//                    conversation = historyConversations[indexPath.row]
+//                }
+//
+//                let cellTitle = conversation.name
+//                if let destinationViewController = segue.destination as? ConversationViewController {
+//                    destinationViewController.cellTitle = cellTitle
+//                }
+//            }
+//        }
+//
+//        if segue.identifier == "ShowThemesSegue" {
+//            if let destinationViewController = segue.destination as? ThemesViewController {
+//                destinationViewController.delegate = self
+//                if let theme = self.view.backgroundColor {
+//                    destinationViewController.currentTheme = theme
+//                }
+//            }
+//        }
+//    }
+    
+    
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+                    
+        var conversation: Conversation!
+            
+        if indexPath.section == 0 {
+            conversation = onlineConversations[indexPath.row]
+        } else if indexPath.section == 1 {
+            conversation = historyConversations[indexPath.row]
         }
         
-        if segue.identifier == "ShowThemesSegue" {
-            if let destinationViewController = segue.destination as? ThemesViewController {
-                destinationViewController.delegate = self
-                if let theme = self.view.backgroundColor {
-                    destinationViewController.currentTheme = theme
-                }
+        let cellTitle = conversation.name
+        
+        if let conversationVC  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConversationViewController") as? ConversationViewController {
+            conversationVC.cellTitle = cellTitle
+            if let navigator = navigationController {
+                navigator.pushViewController(conversationVC, animated: true)
             }
         }
-        
         
     }
-
     
-//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-//        self.performSegue(withIdentifier: "ShowConversationSegue", sender: nil)
+    
+//    @IBAction func openThemesButton(_ sender: UIBarButtonItem) {
 //
-//        let conversationViewController = ConversationViewController()
-//        navigationController?.pushViewController(conversationViewController, animated: true)
+//        let themesVC = ThemesViewController(
+//                    nibName: "ThemesViewController",
+//                    bundle: nil)
+//                navigationController?.pushViewController(themesVC,
+//                                                         animated: true)
 //    }
+    
+    
     
     func logThemeChanging(selectedTheme: UIColor) {
         

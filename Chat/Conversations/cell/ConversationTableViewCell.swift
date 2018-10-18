@@ -31,9 +31,7 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
         didSet {
         
             let secondsAgo = Int(Date().timeIntervalSince(date!))
-            let minute = 60
-            let hour = 60 * minute
-            let day = 24 * hour
+            let day = 24 * 60 * 60
             let formatter = DateFormatter()
             
             if secondsAgo < day {

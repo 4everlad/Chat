@@ -19,11 +19,12 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     func addConversations() {
         
         messages.append(Message(text: "Здравствуйте вавоавоаоваоваasd efefwef fdsfsdfs sdfsdfsdf sdfs вараврва оваовао ваовао ", mType: .from))
-        messages.append(Message(text: "Выдох за выдохом, фильтр за фильтром, Моторчик потрёпанный бьется в ритм. Злобный кашель режет трахею опасной бритвой", mType: .from))
-        messages.append(Message(text: "Здравствуйте вавоавоаоваова sdfs", mType: .to))
+        messages.append(Message(text: "Здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте ", mType: .from))
+        messages.append(Message(text: "Здравствуйте вавоавоаоваова sdfs здравствуйте здравствуйте здравствуйте ", mType: .to))
         messages.append(Message(text: "Здравствуйте вавоавоаоваова sd", mType: .from))
         messages.append(Message(text: "Здрdv dssdfsd sdf sdf fsdf fsdf sdf ", mType: .to))
         messages.append(Message(text: "Здравствуйте вавоавоаsdfs sdf sdf ", mType: .from))
+        messages.append(Message(text: "вавоавоаsdfs sdf sdf ысысвсывс", mType: .from))
         
     }
 

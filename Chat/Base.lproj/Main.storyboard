@@ -35,7 +35,8 @@
                     <navigationItem key="navigationItem" title="Tinkoff Chat" id="RMZ-ZE-WMe">
                         <barButtonItem key="leftBarButtonItem" title="Темы" id="v1O-3a-gQk">
                             <connections>
-                                <segue destination="wAm-IH-NfT" kind="presentation" identifier="ShowThemesSegue" id="0kh-Hp-Emt"/>
+                                <action selector="openThemesButton:" destination="Nm7-n5-jy7" id="gCd-q6-Kjn"/>
+                                <segue destination="wAm-IH-NfT" kind="presentation" identifier="ShowThemesSegue" id="Xnl-Bc-k3k"/>
                             </connections>
                         </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" title="Профиль" id="C4R-qJ-zcU">
@@ -46,7 +47,6 @@
                     </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="lE3-N5-MdV" id="ZWi-Eq-IPu"/>
-                        <segue destination="fXu-Ux-KhC" kind="show" identifier="ShowConversationSegue" id="KCO-4r-xrF"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="OE6-LK-aEM" userLabel="First Responder" sceneMemberID="firstResponder"/>
@@ -167,19 +167,19 @@
         <!--Conversation View Controller-->
         <scene sceneID="Mbw-zA-NDJ">
             <objects>
-                <viewController id="fXu-Ux-KhC" customClass="ConversationViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
+                <viewController storyboardIdentifier="ConversationViewController" id="fXu-Ux-KhC" customClass="ConversationViewController" customModule="Chat" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="7iC-hA-LRX">
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDr-Os-oZK">
-                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <rect key="frame" x="0.0" y="-24" width="320" height="44"/>
                                 <items>
                                     <navigationItem title="Title" id="G9y-N4-Cna"/>
                                 </items>
                             </navigationBar>
                             <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-21-6YZ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="464"/>
+                                <rect key="frame" x="0.0" y="20" width="320" height="508"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="d2s-jt-qXa">
