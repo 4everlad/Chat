@@ -168,12 +168,17 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
                 }
             }
         }
+        
+        
     }
 
     
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        self.performSegue(withIdentifier: "ShowConversationSegue", sender: nil)
-    }
+//    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+//        self.performSegue(withIdentifier: "ShowConversationSegue", sender: nil)
+//
+//        let conversationViewController = ConversationViewController()
+//        navigationController?.pushViewController(conversationViewController, animated: true)
+//    }
     
     func logThemeChanging(selectedTheme: UIColor) {
         
