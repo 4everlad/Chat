@@ -31,18 +31,42 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     func addConversations() {
         
-        conversations.append(Conversation(name: "Иван", message: nil, date: Date(), online: true, hasUnreadMessages: false))
-        conversations.append(Conversation(name: "Лена", message: "раз два три четыре пять", date: Date(), online: true, hasUnreadMessages: false))
-        conversations.append(Conversation(name: "Пижон", message: "Здорова", date: Date(), online: true, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Бекмамбет", message: "Здравствуйте уважаемый", date: Date(), online: true, hasUnreadMessages: true))
+        let inFormatter = DateFormatter()
+        inFormatter.dateFormat = "MM-dd-yyyy HH:mm"
+        
+        var inStr = "10-16-2018 18:32"
+        var date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Иван", message: nil, date: date, online: true, hasUnreadMessages: false))
+        inStr = "10-15-2018 12:32"
+        date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Лена", message: "раз два три четыре пять", date: date, online: true, hasUnreadMessages: false))
+        inStr = "09-17-2018 12:32"
+        date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Пижон", message: "Здорова", date: date, online: true, hasUnreadMessages: true))
+        inStr = "10-17-2017 12:32"
+        date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Бекмамбет", message: "Здравствуйте уважаемый", date: date, online: true, hasUnreadMessages: true))
+        inStr = "10-10-2018 12:32"
+        date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Хабиб", message: "вввввв", date: date, online: true, hasUnreadMessages: false))
+        inStr = "10-17-2018 12:32"
+        date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Приор", message: "ввава", date: date, online: true, hasUnreadMessages: true))
+        inStr = "10-17-2018 12:32"
+        date = inFormatter.date(from: inStr)!
+        conversations.append(Conversation(name: "Ташкент", message: "Здравствуйте", date: date, online: true, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Анатолий", message: "Здравствуйте", date: Date(), online: true, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Илон", message: "С пацанами ракету вчера взорвали", date: Date(), online: true, hasUnreadMessages: false))
+        
         conversations.append(Conversation(name: "Тристан", message: "ыварвраырваывра", date: Date(), online: false, hasUnreadMessages: true))
         conversations.append(Conversation(name: "Валерка", message: "вататаыта", date: Date(), online: false, hasUnreadMessages: true))
         conversations.append(Conversation(name: "Кебаб", message: nil, date: Date(), online: false, hasUnreadMessages: false))
-        conversations.append(Conversation(name: "Хабиб", message: "вввввв", date: Date(), online: true, hasUnreadMessages: false))
-        conversations.append(Conversation(name: "Приор", message: "ввава", date: Date(), online: true, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Ташкент", message: "Здравствуйте", date: Date(), online: true, hasUnreadMessages: true))
-        conversations.append(Conversation(name: "Анатолий", message: "Здравствуйте", date: Date(), online: true, hasUnreadMessages: true))
-        
+        conversations.append(Conversation(name: "Виктор", message: nil, date: Date(), online: false, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Анастасия", message: "раз два три четыре пять шесть семь восемь девять десять одиннадцать", date: Date(), online: false, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Данила", message: nil, date: Date(), online: false, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Юлия", message: "Приветствую, записываемся на татауировочки", date: Date(), online: false, hasUnreadMessages: false))
+        conversations.append(Conversation(name: "Ринат", message: "Вот шлем себе купил", date: Date(), online: false, hasUnreadMessages: true))
+        conversations.append(Conversation(name: "Клавдия", message: "Хлеба сходи купи", date: Date(), online: false, hasUnreadMessages: true))
     }
     
     
@@ -89,30 +113,11 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
             conversation = historyConversations[indexPath.row]
         }
         
-        cell.nameLabel.text = conversation.name
-        
-        // Если передан nil?
-        if let lastMessage = conversation.message {
-            cell.messageLabel.text = lastMessage
-        } else {
-            cell.messageLabel.text = "No messages yet"
-            cell.messageLabel.font = UIFont(name:"Arial", size: 20)
-        }
-
-        let formatter = DateFormatter()
-        formatter.dateFormat = "HH:mm"
-        cell.dateLabel.text = formatter.string(for: conversation.date)
-        
-        cell.indexLabel.text = String(indexPath.row)
-        
-        if conversation.online {
-            let yellowColor = UIColor(red: 255/255.0, green: 255/255.0, blue: 153/255.0, alpha: 1.0)
-            cell.backgroundColor = yellowColor
-        }
-        
-        if conversation.hasUnreadMessages {
-            cell.messageLabel.font = UIFont.boldSystemFont(ofSize: 16.0)
-        }
+        cell.name = conversation.name
+        cell.message = conversation.message
+        cell.date = conversation.date
+        cell.online = conversation.online
+        cell.hasUnreadMessages = conversation.hasUnreadMessages
         
         return cell
     }
@@ -134,8 +139,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
-    
-
     
     override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
         if segue.identifier == "ShowConversationSegue" {
@@ -163,7 +166,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
                 if let theme = self.view.backgroundColor {
                     destinationViewController.currentTheme = theme
                 }
-                
             }
         }
     }

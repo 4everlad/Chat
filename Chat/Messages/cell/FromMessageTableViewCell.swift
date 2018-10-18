@@ -8,12 +8,20 @@
 
 import UIKit
 
-class FromMessageTableViewCell: UITableViewCell {
+class FromMessageTableViewCell: UITableViewCell, MessageCellConfiguration {
+    
+    var textMessage: String? {
+        didSet {
+            messageLabel.text = textMessage
+        }
+    }
     
     @IBOutlet weak var messageLabel: UILabel!  {
         didSet {
-            messageLabel.numberOfLines = 0;
+            messageLabel.numberOfLines = 0
             messageLabel.sizeToFit()
+            messageLabel.layer.cornerRadius = 10.0
+            messageLabel.layer.masksToBounds = true
         }
     }
     

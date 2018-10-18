@@ -21,6 +21,8 @@
 		3A719255216BBD2B0038FC7D /* Message.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719254216BBD2B0038FC7D /* Message.swift */; };
 		3A719259216F90440038FC7D /* ThemesViewController.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A719258216F90440038FC7D /* ThemesViewController.m */; };
 		3A71925E2170AA160038FC7D /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A71925D2170AA160038FC7D /* Themes.m */; };
+		3A719262217661770038FC7D /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719261217661770038FC7D /* ConversationCellConfiguration.swift */; };
+		3A719264217693F10038FC7D /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719263217693F10038FC7D /* MessageCellConfiguration.swift */; };
 		3AF14FC821678FA7004A3C87 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */; };
 		3AF14FC921678FA7004A3C87 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */; };
 		3AF14FCD2168883A004A3C87 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */; };
@@ -48,6 +50,8 @@
 		3A71925C216FDEB40038FC7D /* Themes.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = Themes.h; sourceTree = "<group>"; };
 		3A71925D2170AA160038FC7D /* Themes.m */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.objc; path = Themes.m; sourceTree = "<group>"; };
 		3A71925F2170B5970038FC7D /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
+		3A719261217661770038FC7D /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
+		3A719263217693F10038FC7D /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
 		3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -105,7 +109,6 @@
 				3A71924B216BB73C0038FC7D /* cell */,
 				3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */,
 				3AF14FD02168EE21004A3C87 /* Conversation.swift */,
-				3A719254216BBD2B0038FC7D /* Message.swift */,
 			);
 			path = Conversations;
 			sourceTree = "<group>";
@@ -115,6 +118,7 @@
 			children = (
 				3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */,
 				3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */,
+				3A719261217661770038FC7D /* ConversationCellConfiguration.swift */,
 			);
 			path = cell;
 			sourceTree = "<group>";
@@ -124,6 +128,7 @@
 			children = (
 				3A71924D216BB76D0038FC7D /* cell */,
 				3A719244216BB6C00038FC7D /* ConversationViewController.swift */,
+				3A719254216BBD2B0038FC7D /* Message.swift */,
 			);
 			path = Messages;
 			sourceTree = "<group>";
@@ -131,6 +136,7 @@
 		3A71924D216BB76D0038FC7D /* cell */ = {
 			isa = PBXGroup;
 			children = (
+				3A719263217693F10038FC7D /* MessageCellConfiguration.swift */,
 				3A719246216BB7090038FC7D /* FromMessageTableViewCell.swift */,
 				3A719247216BB7090038FC7D /* FromMessageTableViewCell.xib */,
 				3A719250216BB7B20038FC7D /* ToMessageTableViewCell.swift */,
@@ -229,6 +235,7 @@
 				3A719245216BB6C00038FC7D /* ConversationViewController.swift in Sources */,
 				3A719252216BB7B20038FC7D /* ToMessageTableViewCell.swift in Sources */,
 				3AF14FD12168EE21004A3C87 /* Conversation.swift in Sources */,
+				3A719262217661770038FC7D /* ConversationCellConfiguration.swift in Sources */,
 				3AF14FC821678FA7004A3C87 /* ConversationTableViewCell.swift in Sources */,
 				3AF14FCD2168883A004A3C87 /* ConversationsListViewController.swift in Sources */,
 				3A58C97221590BE10075BADA /* LoggingLifeCycle.swift in Sources */,
@@ -237,6 +244,7 @@
 				3A606C6C21566A4900D62DC8 /* ProfileViewController.swift in Sources */,
 				3A71925E2170AA160038FC7D /* Themes.m in Sources */,
 				3A606C6A21566A4900D62DC8 /* AppDelegate.swift in Sources */,
+				3A719264217693F10038FC7D /* MessageCellConfiguration.swift in Sources */,
 				3A719259216F90440038FC7D /* ThemesViewController.m in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;

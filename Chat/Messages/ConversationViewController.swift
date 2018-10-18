@@ -18,8 +18,8 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     func addConversations() {
         
-        messages.append(Message(text: "Здравствуйте вавоавоаоваоваasd efefwef fdsfsdfs sdfsdfsdf sdfs", mType: .from))
-        messages.append(Message(text: "приветствую вавоавоаоваова sdfsf sdfsf sdfs ", mType: .from))
+        messages.append(Message(text: "Здравствуйте вавоавоаоваоваasd efefwef fdsfsdfs sdfsdfsdf sdfs вараврва оваовао ваовао ", mType: .from))
+        messages.append(Message(text: "Выдох за выдохом, фильтр за фильтром, Моторчик потрёпанный бьется в ритм. Злобный кашель режет трахею опасной бритвой", mType: .from))
         messages.append(Message(text: "Здравствуйте вавоавоаоваова sdfs", mType: .to))
         messages.append(Message(text: "Здравствуйте вавоавоаоваова sd", mType: .from))
         messages.append(Message(text: "Здрdv dssdfsd sdf sdf fsdf fsdf sdf ", mType: .to))
@@ -35,20 +35,15 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
         let message = messages[indexPath.row]
-//
-//        let cell = tableView.dequeueReusableCell(withIdentifier: "FromMessageCell", for: indexPath) as! FromMessageTableViewCell
-//
-//        cell.messageLabel.text = message.text
-//
-//        return cell
+
         switch message.mType {
         case .from:
             let cell = tableView.dequeueReusableCell(withIdentifier: "FromMessageCell", for: indexPath) as! FromMessageTableViewCell
-            cell.messageLabel.text = message.text
+            cell.textMessage = message.text
             return cell
         case .to:
             let cell = tableView.dequeueReusableCell(withIdentifier: "ToMessageCell", for: indexPath) as! ToMessageTableViewCell
-            cell.messageLabel.text = message.text
+            cell.textMessage = message.text
             return cell
         }
 

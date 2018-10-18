@@ -61,23 +61,6 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="70D-qh-vqf">
-                                <rect key="frame" x="16" y="20" width="288" height="287"/>
-                                <constraints>
-                                    <constraint firstAttribute="width" secondItem="70D-qh-vqf" secondAttribute="height" multiplier="288:287" id="Hfu-5O-lsU"/>
-                                </constraints>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="35"/>
-                                    </userDefinedRuntimeAttribute>
-                                </userDefinedRuntimeAttributes>
-                            </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Dmitry Bakulin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdd-it-dsD">
-                                <rect key="frame" x="16" y="324" width="288" height="32.5"/>
-                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="PcU-mf-dr7">
                                 <rect key="frame" x="16" y="501" width="288" height="47"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
@@ -94,8 +77,37 @@
                                     <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
                                 </userDefinedRuntimeAttributes>
                             </button>
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="Fg8-qP-VAc">
+                                <rect key="frame" x="0.0" y="20" width="320" height="44"/>
+                                <items>
+                                    <navigationItem title="Профиль" id="vy5-2D-D2C">
+                                        <barButtonItem key="leftBarButtonItem" title="Закрыть" id="w4k-bE-rAa">
+                                            <connections>
+                                                <action selector="closeProfileButton:" destination="BYZ-38-t0r" id="fSA-ab-g7c"/>
+                                            </connections>
+                                        </barButtonItem>
+                                    </navigationItem>
+                                </items>
+                            </navigationBar>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFill" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="UserPlaceholder" translatesAutoresizingMaskIntoConstraints="NO" id="70D-qh-vqf">
+                                <rect key="frame" x="16" y="64" width="288" height="287"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" secondItem="70D-qh-vqf" secondAttribute="height" multiplier="288:287" id="Hfu-5O-lsU"/>
+                                </constraints>
+                                <userDefinedRuntimeAttributes>
+                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
+                                        <integer key="value" value="35"/>
+                                    </userDefinedRuntimeAttribute>
+                                </userDefinedRuntimeAttributes>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="252" verticalCompressionResistancePriority="751" text="Dmitry Bakulin" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Wdd-it-dsD">
+                                <rect key="frame" x="16" y="368" width="288" height="32.5"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="27"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                             <button opaque="NO" contentMode="scaleAspectFit" contentHorizontalAlignment="center" contentVerticalAlignment="center" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="mX0-7S-bor">
-                                <rect key="frame" x="229" y="237" width="75" height="70"/>
+                                <rect key="frame" x="229" y="281" width="75" height="70"/>
                                 <color key="backgroundColor" red="0.24705882352941178" green="0.47058823529411764" blue="0.94117647058823528" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
                                     <constraint firstAttribute="width" secondItem="mX0-7S-bor" secondAttribute="height" multiplier="15:14" id="BD9-Y1-s1b"/>
@@ -113,7 +125,7 @@
                                 </connections>
                             </button>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Description description description description description description" textAlignment="natural" lineBreakMode="tailTruncation" numberOfLines="0" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="n89-VL-F3A">
-                                <rect key="frame" x="16" y="364" width="288" height="41"/>
+                                <rect key="frame" x="16" y="408" width="288" height="41"/>
                                 <fontDescription key="fontDescription" type="system" weight="thin" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
@@ -121,8 +133,10 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
+                            <constraint firstItem="70D-qh-vqf" firstAttribute="top" secondItem="Fg8-qP-VAc" secondAttribute="bottom" id="4b9-Rm-SDM"/>
                             <constraint firstItem="n89-VL-F3A" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="7NE-dr-xPm"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PcU-mf-dr7" secondAttribute="bottom" constant="20" id="EXx-Mm-0B1"/>
+                            <constraint firstItem="Fg8-qP-VAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IVq-tC-RNR"/>
                             <constraint firstItem="Wdd-it-dsD" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="JA0-HP-a22"/>
                             <constraint firstItem="PcU-mf-dr7" firstAttribute="top" relation="greaterThanOrEqual" secondItem="n89-VL-F3A" secondAttribute="bottom" constant="8" id="JzT-HE-9Tb"/>
                             <constraint firstItem="mX0-7S-bor" firstAttribute="bottom" secondItem="70D-qh-vqf" secondAttribute="bottom" id="KMk-bL-sTN"/>
@@ -130,13 +144,14 @@
                             <constraint firstItem="PcU-mf-dr7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="OHl-7A-WZy"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="Wdd-it-dsD" secondAttribute="trailing" constant="16" id="Pvd-fB-yJk"/>
                             <constraint firstItem="n89-VL-F3A" firstAttribute="top" secondItem="Wdd-it-dsD" secondAttribute="bottom" constant="7.5" id="Rzb-fU-xxl"/>
+                            <constraint firstItem="Fg8-qP-VAc" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="Tu8-iB-u16"/>
+                            <constraint firstItem="Fg8-qP-VAc" firstAttribute="trailing" secondItem="6Tk-OE-BBY" secondAttribute="trailing" id="U2s-RN-pPY"/>
                             <constraint firstItem="mX0-7S-bor" firstAttribute="leading" relation="greaterThanOrEqual" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="8" id="aoc-fC-LQw"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="70D-qh-vqf" secondAttribute="trailing" constant="16" id="cAq-MP-WDV"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="PcU-mf-dr7" secondAttribute="trailing" constant="16" id="jCE-1x-Ic2"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="n89-VL-F3A" secondAttribute="trailing" constant="16" id="nhA-qR-rqx"/>
                             <constraint firstItem="70D-qh-vqf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="pqk-9h-DuG"/>
                             <constraint firstItem="Wdd-it-dsD" firstAttribute="top" secondItem="70D-qh-vqf" secondAttribute="bottom" constant="17" id="u3J-uH-W4e"/>
-                            <constraint firstItem="70D-qh-vqf" firstAttribute="top" secondItem="6Tk-OE-BBY" secondAttribute="top" id="vmB-M4-518"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
@@ -147,7 +162,7 @@
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="dkx-z0-nzr" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="146" y="-870"/>
+            <point key="canvasLocation" x="144.375" y="-870.42253521126759"/>
         </scene>
         <!--Conversation View Controller-->
         <scene sceneID="Mbw-zA-NDJ">
@@ -157,20 +172,30 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="568"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
-                            <navigationBar contentMode="scaleToFill" fixedFrame="YES" translatesAutoresizingMaskIntoConstraints="NO" id="xDr-Os-oZK">
+                            <navigationBar contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="xDr-Os-oZK">
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
-                                <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
                                     <navigationItem title="Title" id="G9y-N4-Cna"/>
                                 </items>
                             </navigationBar>
-                            <tableView clipsSubviews="YES" contentMode="scaleToFill" fixedFrame="YES" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="default" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-21-6YZ">
-                                <rect key="frame" x="0.0" y="64" width="320" height="455"/>
-                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                            <tableView clipsSubviews="YES" contentMode="scaleToFill" alwaysBounceVertical="YES" dataMode="prototypes" style="plain" separatorStyle="none" rowHeight="-1" estimatedRowHeight="-1" sectionHeaderHeight="28" sectionFooterHeight="28" translatesAutoresizingMaskIntoConstraints="NO" id="Ulo-21-6YZ">
+                                <rect key="frame" x="0.0" y="64" width="320" height="504"/>
                                 <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                             </tableView>
                         </subviews>
                         <color key="backgroundColor" white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+                        <constraints>
+                            <constraint firstItem="Ulo-21-6YZ" firstAttribute="leading" secondItem="gLF-mu-eZF" secondAttribute="leading" id="0hz-q0-VAD"/>
+                            <constraint firstItem="gLF-mu-eZF" firstAttribute="top" secondItem="xDr-Os-oZK" secondAttribute="top" constant="44" id="406-jB-r5B"/>
+                            <constraint firstItem="gLF-mu-eZF" firstAttribute="bottom" secondItem="Ulo-21-6YZ" secondAttribute="bottom" id="8Gr-QH-oEG"/>
+                            <constraint firstItem="xDr-Os-oZK" firstAttribute="leading" secondItem="7iC-hA-LRX" secondAttribute="leading" id="9hj-du-YWv"/>
+                            <constraint firstItem="Ulo-21-6YZ" firstAttribute="top" secondItem="xDr-Os-oZK" secondAttribute="bottom" id="FUk-7e-4Tc"/>
+                            <constraint firstItem="Ulo-21-6YZ" firstAttribute="trailing" secondItem="gLF-mu-eZF" secondAttribute="trailing" id="OqV-Jg-AyK"/>
+                            <constraint firstItem="Ulo-21-6YZ" firstAttribute="trailing" secondItem="gLF-mu-eZF" secondAttribute="trailing" id="j5R-mN-y3u"/>
+                            <constraint firstItem="Ulo-21-6YZ" firstAttribute="top" secondItem="xDr-Os-oZK" secondAttribute="bottom" id="kKP-Lo-Xbb"/>
+                            <constraint firstItem="Ulo-21-6YZ" firstAttribute="leading" secondItem="gLF-mu-eZF" secondAttribute="leading" id="vAu-tz-MNa"/>
+                            <constraint firstAttribute="trailing" secondItem="xDr-Os-oZK" secondAttribute="trailing" id="zEV-kY-dCT"/>
+                        </constraints>
                         <viewLayoutGuide key="safeArea" id="gLF-mu-eZF"/>
                     </view>
                     <connections>
@@ -211,7 +236,7 @@
                                 <rect key="frame" x="0.0" y="20" width="320" height="44"/>
                                 <autoresizingMask key="autoresizingMask" widthSizable="YES" flexibleMaxY="YES"/>
                                 <items>
-                                    <navigationItem title="Title" id="CZm-te-7LM">
+                                    <navigationItem title="Темы" id="CZm-te-7LM">
                                         <barButtonItem key="leftBarButtonItem" title="Закрыть" id="N51-9E-qZG">
                                             <connections>
                                                 <action selector="closeThemesButton:" destination="wAm-IH-NfT" id="UOQ-CY-6X0"/>
