@@ -13,10 +13,107 @@ UINavigationControllerDelegate {
     
  //   var log = LoggingLifeCycle()
 
+    let gcd = GCDDataManager()
     
     @IBOutlet weak var editButton: UIButton!
 
     @IBOutlet weak var userImage: UIImageView!
+    
+    @IBOutlet var chooseImageButton: UIButton!
+    
+    @IBOutlet var userNameTextField: UITextField!
+    
+    @IBOutlet var userInfoTextView: UITextView!
+    
+    @IBOutlet var gcdButton: UIButton!
+    
+    @IBOutlet var operationButton: UIButton!
+    
+    @IBOutlet var savingActivityIndicator: UIActivityIndicatorView!
+    
+    
+    @IBAction func editProfile(_ sender: UIButton) {
+        editButton.isEnabled = false
+        editButton.isHidden = true
+        
+        chooseImageButton.isHidden = false
+        
+        gcdButton.isHidden = false
+        gcdButton.isEnabled = true
+        operationButton.isHidden = false
+        operationButton.isEnabled = true
+        
+        userNameTextField.isUserInteractionEnabled = true
+        userNameTextField.font = UIFont(name: "System", size: 14)
+        userNameTextField.borderStyle = UITextField.BorderStyle.roundedRect
+        
+        editButton.isHidden = true
+        
+        userNameTextField.isUserInteractionEnabled = true
+        userInfoTextView.isUserInteractionEnabled = true
+        
+    }
+    
+    @IBAction func saveWithGCD(_ sender: UIButton) {
+        
+        
+        savingActivityIndicator.isHidden = false
+        savingActivityIndicator.startAnimating()
+        gcdButton.isEnabled = false
+        operationButton.isEnabled = false
+            
+            
+            //        if let image = userImage.image {
+            //            gcd.saveImage()
+            //        }
+            //
+            //        if let name = userNameTextField.text {
+            //            gcd.userName = name
+            //            gcd.saveUserName()
+            //        }
+            //
+            //        if let info = userInfoTextView.text {
+            //            gcd.userInfo = info
+            //            gcd.saveUserInfo()
+            //        }
+        gcd.userName = userNameTextField.text
+        gcd.userInfo = userInfoTextView.text
+        gcd.userImage = userImage.image
+        gcd.saveData()
+        gcd.readData()
+            
+        userNameTextField.text = gcd.userName
+        userInfoTextView.text = gcd.userInfo
+        userImage.image = gcd.userImage
+            
+        gcdButton.isHidden = true
+        operationButton.isHidden = true
+        
+        backToViewMode()
+    }
+    
+    func backToViewMode() {
+        
+        savingActivityIndicator.stopAnimating()
+        chooseImageButton.isHidden = true
+        
+//        userNameTextField.isUserInteractionEnabled = false
+        userNameTextField.font = UIFont.boldSystemFont(ofSize: 27.0)
+        userNameTextField.borderStyle = UITextField.BorderStyle.none
+        userInfoTextView.isUserInteractionEnabled = false
+        userInfoTextView.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.thin)
+//        userInfoTextView.font = UIFont.thinSystemFont(ofSize: 17.0)
+        
+        editButton.isEnabled = true
+        editButton.isHidden = false
+        
+        gcdButton.isHidden = true
+        operationButton.isHidden = true
+        
+        savingActivityIndicator.isHidden = true
+        
+    }
+    
     
     @IBAction func chooseImageProfile(_ sender: UIButton) {
         print("Choose Image Profile")
@@ -99,8 +196,27 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
 
         editButton.layer.borderColor = UIColor.black.cgColor
         editButton.layer.borderWidth = 1.0
-
+        chooseImageButton.isHidden = true
         
+        gcdButton.isHidden = true
+        operationButton.isHidden = true
+
+        userNameTextField.isUserInteractionEnabled = false
+        userInfoTextView.isUserInteractionEnabled = false
+        
+        savingActivityIndicator.isHidden = true
+        
+        if let image = gcd.readImage() {
+            userImage.image = image
+        }
+        
+        if let name = gcd.readUserName() {
+            userNameTextField.text = name
+        } else { userNameTextField.text = "Your Name" }
+        
+        if let info = gcd.readUserInfo() {
+            userInfoTextView.text = info
+        } else { userInfoTextView.text = "Your Profile Information" }
  //       log.printMethod()
         
         print("editButton frame:\(editButton.layer.frame)")
