@@ -64,19 +64,6 @@ UINavigationControllerDelegate {
         operationButton.isEnabled = false
             
             
-            //        if let image = userImage.image {
-            //            gcd.saveImage()
-            //        }
-            //
-            //        if let name = userNameTextField.text {
-            //            gcd.userName = name
-            //            gcd.saveUserName()
-            //        }
-            //
-            //        if let info = userInfoTextView.text {
-            //            gcd.userInfo = info
-            //            gcd.saveUserInfo()
-            //        }
         gcd.userName = userNameTextField.text
         gcd.userInfo = userInfoTextView.text
         gcd.userImage = userImage.image
