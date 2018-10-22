@@ -14,6 +14,7 @@ UINavigationControllerDelegate {
  //   var log = LoggingLifeCycle()
 
     let gcd = GCDDataManager()
+    let operation = OperationDataManager()
     
     @IBOutlet weak var editButton: UIButton!
 
@@ -85,12 +86,30 @@ UINavigationControllerDelegate {
         userNameTextField.text = gcd.userName
         userInfoTextView.text = gcd.userInfo
         userImage.image = gcd.userImage
-            
-        gcdButton.isHidden = true
-        operationButton.isHidden = true
+        
         
         backToViewMode()
     }
+    
+    @IBAction func saveWithOperation(_ sender: UIButton) {
+        savingActivityIndicator.isHidden = false
+        savingActivityIndicator.startAnimating()
+        gcdButton.isEnabled = false
+        operationButton.isEnabled = false
+        
+        operation.userName = userNameTextField.text
+        operation.userInfo = userInfoTextView.text
+        operation.userImage = userImage.image
+        operation.saveData()
+        operation.readData()
+        
+        userNameTextField.text = operation.userName
+        userInfoTextView.text = operation.userInfo
+        userImage.image = operation.userImage
+        
+        backToViewMode()
+    }
+    
     
     func backToViewMode() {
         
@@ -100,6 +119,7 @@ UINavigationControllerDelegate {
 //        userNameTextField.isUserInteractionEnabled = false
         userNameTextField.font = UIFont.boldSystemFont(ofSize: 27.0)
         userNameTextField.borderStyle = UITextField.BorderStyle.none
+        userNameTextField.isUserInteractionEnabled = false
         userInfoTextView.isUserInteractionEnabled = false
         userInfoTextView.font = UIFont.systemFont(ofSize: 17, weight: UIFont.Weight.thin)
 //        userInfoTextView.font = UIFont.thinSystemFont(ofSize: 17.0)

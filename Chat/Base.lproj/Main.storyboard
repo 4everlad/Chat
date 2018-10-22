@@ -181,6 +181,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="editProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3S9-w5-4wu"/>
+                                    <action selector="saveWithOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GZg-JC-Dtf"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Lxr-RM-Pig">
