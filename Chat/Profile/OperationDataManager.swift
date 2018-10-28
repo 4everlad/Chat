@@ -13,35 +13,31 @@ class OperationDataManager {
     var userInfo: String?
     var userImage: UIImage?
     
+//    override var isExecuting: Bool {
+//        get {
+//            return Operation.is
+//        }
+//    }
+    
     let queue = OperationQueue()
-    
-    func readUserName() -> String? {
-        let defaults = UserDefaults.standard
-        if let name = defaults.string(forKey: "userName") {
-            return name
-        } else {
-            print("Name is not set")
-            return nil
-        }
-    }
-    
-    func readUserInfo() -> String? {
-        let defaults = UserDefaults.standard
-        if let name = defaults.string(forKey: "userInfo") {
-            return name
-        } else {
-            print("Name is not set")
-            return nil
-        }
-    }
     
     func readData() {
         queue.maxConcurrentOperationCount = 1
         queue.qualityOfService = .userInitiated
         queue.addOperation {
-            self.userName = self.readUserName()
-            self.userInfo = self.readUserInfo()
-            self.userImage = self.readImage()
+            let defaults = UserDefaults.standard
+            if let name = defaults.string(forKey: "userName") {
+                self.userName = name
+            } else { self.userName = nil }
+            
+            if let info = defaults.string(forKey: "userInfo") {
+                self.userInfo = info
+            } else { self.userInfo = nil }
+            
+            let filename = self.getDocumentsDirectory().appendingPathComponent("userimage.png")
+            if let image = UIImage(contentsOfFile: filename.path) {
+                self.userImage = image
+            } else { self.userImage = nil }
         }
         queue.qualityOfService = .userInitiated
     }
@@ -50,48 +46,27 @@ class OperationDataManager {
         queue.maxConcurrentOperationCount = 1
         queue.qualityOfService = .userInitiated
         queue.addOperation {
-            self.saveUserName()
-            self.saveUserInfo()
-            self.saveImage()
-        }
-    }
-    
-    func saveUserName() {
-        if let name = userName {
             let defaults = UserDefaults.standard
-            defaults.set(name, forKey: "userName")
+            if let name = self.userName {
+                defaults.set(name, forKey: "userName")
+            }
+            
+            if let info = self.userInfo {
+                defaults.set(info, forKey: "userInfo")
+            }
+            
+            if let data = self.userImage?.pngData() {
+                let filename = self.getDocumentsDirectory().appendingPathComponent("userimage.png")
+                try? data.write(to: filename)
+            }
         }
     }
-    
-    func saveUserInfo() {
-        if let info = userInfo {
-            let defaults = UserDefaults.standard
-            defaults.set(info, forKey: "userInfo")
-        }
-    }
-    
-    
-    func readImage() -> UIImage? {
-        let filename = getDocumentsDirectory().appendingPathComponent("userimage.png")
-        if let image = UIImage(contentsOfFile: filename.path) {
-            return image
-        } else {
-            print("no image file at that directory")
-            return nil
-        }
-    }
-    
-    func saveImage() {
-        //        let image = userImage
-        if let data = userImage?.pngData() {
-            let filename = getDocumentsDirectory().appendingPathComponent("userimage.png")
-            try? data.write(to: filename)
-        }
-    }
-    
+
     func getDocumentsDirectory() -> URL {
         let paths = FileManager.default.urls(for: .documentDirectory, in: .userDomainMask)
         return paths[0]
     }
+    
+    
 }
 

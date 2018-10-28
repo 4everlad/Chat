@@ -307,6 +307,7 @@
                         <viewLayoutGuide key="safeArea" id="gLF-mu-eZF"/>
                     </view>
                     <connections>
+                        <outlet property="messageTextField" destination="8xa-fA-CS5" id="viA-uj-dvi"/>
                         <outlet property="tableView" destination="Ulo-21-6YZ" id="cPC-OK-A7o"/>
                     </connections>
                 </viewController>

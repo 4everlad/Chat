@@ -9,7 +9,7 @@
 import UIKit
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,
-UINavigationControllerDelegate {
+UINavigationControllerDelegate, UITextViewDelegate {
     
  //   var log = LoggingLifeCycle()
 
@@ -40,9 +40,9 @@ UINavigationControllerDelegate {
         chooseImageButton.isHidden = false
         
         gcdButton.isHidden = false
-        gcdButton.isEnabled = true
+        gcdButton.isEnabled = false
         operationButton.isHidden = false
-        operationButton.isEnabled = true
+        operationButton.isEnabled = false
         
         userNameTextField.isUserInteractionEnabled = true
         userNameTextField.font = UIFont(name: "System", size: 14)
@@ -55,38 +55,73 @@ UINavigationControllerDelegate {
         
     }
     
-    @IBAction func saveWithGCD(_ sender: UIButton) {
-        
+    @IBAction func saveWithGCD(_ sender: Any) {
         
         savingActivityIndicator.isHidden = false
         savingActivityIndicator.startAnimating()
         gcdButton.isEnabled = false
         operationButton.isEnabled = false
-            
-            
-        gcd.userName = userNameTextField.text
-        gcd.userInfo = userInfoTextView.text
-        gcd.userImage = userImage.image
-        gcd.saveData()
+        
+        if gcd.userName == userNameTextField.text {
+            gcd.userName = nil
+        } else { gcd.userName = userNameTextField.text }
+        
+        if gcd.userInfo == userInfoTextView.text {
+            gcd.userInfo = nil
+        } else { gcd.userInfo = userInfoTextView.text }
+        
+        if gcd.userImage == userImage.image {
+            gcd.userImage = nil
+        } else { gcd.userImage = userImage.image }
+        
+        let savingResult = gcd.saveData()
+
+        if savingResult {
+            let alertController = UIAlertController(title: "Данные сохранены",
+                                                    message: nil,
+                                                    preferredStyle: .alert)
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+            self.present(alertController, animated: true)
+        } else {
+            let alertController = UIAlertController(title: "Ошибка",
+                                                    message: "Не удалось сохранить данные",
+                                                    preferredStyle: .alert)
+
+            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+
+            alertController.addAction(UIAlertAction(title: "Повторить", style: .default) { (action:UIAlertAction) in self.saveWithGCD((Any).self) });
+
+                self.present(alertController, animated: true)
+            }
+        
         gcd.readData()
-            
+                
         userNameTextField.text = gcd.userName
         userInfoTextView.text = gcd.userInfo
         userImage.image = gcd.userImage
         
-        
         backToViewMode()
+        
     }
     
-    @IBAction func saveWithOperation(_ sender: UIButton) {
+    @IBAction func saveWithOperation(_ sender: Any) {
         savingActivityIndicator.isHidden = false
         savingActivityIndicator.startAnimating()
         gcdButton.isEnabled = false
         operationButton.isEnabled = false
         
-        operation.userName = userNameTextField.text
-        operation.userInfo = userInfoTextView.text
-        operation.userImage = userImage.image
+        if operation.userName == userNameTextField.text {
+            operation.userName = nil
+        } else { operation.userName = userNameTextField.text }
+        
+        if operation.userInfo == userInfoTextView.text {
+            operation.userInfo = nil
+        } else { operation.userInfo = userInfoTextView.text }
+        
+        if operation.userImage == userImage.image {
+            operation.userImage = nil
+        } else { operation.userImage = userImage.image }
+        
         operation.saveData()
         operation.readData()
         
@@ -94,7 +129,18 @@ UINavigationControllerDelegate {
         userInfoTextView.text = operation.userInfo
         userImage.image = operation.userImage
         
+//        savingAlert(isSucceeded: true, isGCD: true)
         backToViewMode()
+    }
+    
+    @objc private func textFieldDidChange(_ textField: UITextField) {
+        gcdButton.isEnabled = true
+        operationButton.isEnabled = true
+    }
+    
+    func textViewDidChange(_ textView: UITextView) {
+        gcdButton.isEnabled = true
+        operationButton.isEnabled = true
     }
     
     
@@ -120,6 +166,11 @@ UINavigationControllerDelegate {
         savingActivityIndicator.isHidden = true
         
     }
+    
+//    func savingAlert(isSucceeded: Bool, isGCD: Bool) {
+//
+//
+//    }
     
     
     @IBAction func chooseImageProfile(_ sender: UIButton) {
@@ -196,10 +247,13 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         // на момент вызова init, кнопка еще не создана
     }
-    
 
     override func viewDidLoad() {
         super.viewDidLoad()
+        
+        userNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
+
+        userInfoTextView.delegate = self
 
         editButton.layer.borderColor = UIColor.black.cgColor
         editButton.layer.borderWidth = 1.0
@@ -213,15 +267,19 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         savingActivityIndicator.isHidden = true
         
-        if let image = gcd.readImage() {
+        gcd.readData()
+        
+        if let image = gcd.userImage {
             userImage.image = image
+        } else {
+            userImage.image = #imageLiteral(resourceName: "UserPlaceholder")
         }
         
-        if let name = gcd.readUserName() {
+        if let name = gcd.userName {
             userNameTextField.text = name
         } else { userNameTextField.text = "Your Name" }
         
-        if let info = gcd.readUserInfo() {
+        if let info = gcd.userInfo {
             userInfoTextView.text = info
         } else { userInfoTextView.text = "Your Profile Information" }
  //       log.printMethod()

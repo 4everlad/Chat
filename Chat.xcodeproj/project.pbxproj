@@ -25,6 +25,9 @@
 		3A71925E2170AA160038FC7D /* Themes.m in Sources */ = {isa = PBXBuildFile; fileRef = 3A71925D2170AA160038FC7D /* Themes.m */; };
 		3A719262217661770038FC7D /* ConversationCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719261217661770038FC7D /* ConversationCellConfiguration.swift */; };
 		3A719264217693F10038FC7D /* MessageCellConfiguration.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3A719263217693F10038FC7D /* MessageCellConfiguration.swift */; };
+		3AA0BD922181CD4A0089EDB4 /* MultipeerCommunicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0BD912181CD4A0089EDB4 /* MultipeerCommunicator.swift */; };
+		3AA0BD942181CE5C0089EDB4 /* Communicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0BD932181CE5C0089EDB4 /* Communicator.swift */; };
+		3AA0BD962181CF6A0089EDB4 /* MPCManagerDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AA0BD952181CF6A0089EDB4 /* MPCManagerDelegate.swift */; };
 		3AF14FC821678FA7004A3C87 /* ConversationTableViewCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */; };
 		3AF14FC921678FA7004A3C87 /* ConversationTableViewCell.xib in Resources */ = {isa = PBXBuildFile; fileRef = 3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */; };
 		3AF14FCD2168883A004A3C87 /* ConversationsListViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */; };
@@ -56,6 +59,9 @@
 		3A71925F2170B5970038FC7D /* ThemesViewControllerDelegate.h */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.c.h; path = ThemesViewControllerDelegate.h; sourceTree = "<group>"; };
 		3A719261217661770038FC7D /* ConversationCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationCellConfiguration.swift; sourceTree = "<group>"; };
 		3A719263217693F10038FC7D /* MessageCellConfiguration.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MessageCellConfiguration.swift; sourceTree = "<group>"; };
+		3AA0BD912181CD4A0089EDB4 /* MultipeerCommunicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultipeerCommunicator.swift; sourceTree = "<group>"; };
+		3AA0BD932181CE5C0089EDB4 /* Communicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Communicator.swift; sourceTree = "<group>"; };
+		3AA0BD952181CF6A0089EDB4 /* MPCManagerDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MPCManagerDelegate.swift; sourceTree = "<group>"; };
 		3AF14FC621678FA7004A3C87 /* ConversationTableViewCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationTableViewCell.swift; sourceTree = "<group>"; };
 		3AF14FC721678FA7004A3C87 /* ConversationTableViewCell.xib */ = {isa = PBXFileReference; lastKnownFileType = file.xib; path = ConversationTableViewCell.xib; sourceTree = "<group>"; };
 		3AF14FCC2168883A004A3C87 /* ConversationsListViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ConversationsListViewController.swift; sourceTree = "<group>"; };
@@ -86,6 +92,10 @@
 		3A606C5D21566A4900D62DC8 = {
 			isa = PBXGroup;
 			children = (
+				3AA0BD952181CF6A0089EDB4 /* MPCManagerDelegate.swift */,
+				3A606C6921566A4900D62DC8 /* AppDelegate.swift */,
+				3AA0BD932181CE5C0089EDB4 /* Communicator.swift */,
+				3AA0BD912181CD4A0089EDB4 /* MultipeerCommunicator.swift */,
 				3A606C6821566A4900D62DC8 /* Chat */,
 				3A606C6721566A4900D62DC8 /* Products */,
 			);
@@ -106,7 +116,6 @@
 				3A71926021725A4D0038FC7D /* Themes */,
 				3A71924C216BB75A0038FC7D /* Messages */,
 				3A71924A216BB7130038FC7D /* Conversations */,
-				3A606C6921566A4900D62DC8 /* AppDelegate.swift */,
 				3A606C6D21566A4900D62DC8 /* Main.storyboard */,
 				3A606C7021566A4C00D62DC8 /* Assets.xcassets */,
 				3A606C7221566A4C00D62DC8 /* LaunchScreen.storyboard */,
@@ -246,6 +255,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				3AA0BD942181CE5C0089EDB4 /* Communicator.swift in Sources */,
 				3A719245216BB6C00038FC7D /* ConversationViewController.swift in Sources */,
 				3A719252216BB7B20038FC7D /* ToMessageTableViewCell.swift in Sources */,
 				3AF14FD12168EE21004A3C87 /* Conversation.swift in Sources */,
@@ -260,6 +270,8 @@
 				3A35FE06217D610200D1C6F8 /* OperationDataManager.swift in Sources */,
 				3A606C6A21566A4900D62DC8 /* AppDelegate.swift in Sources */,
 				3A35FE03217BBBB300D1C6F8 /* GCDDataManager.swift in Sources */,
+				3AA0BD922181CD4A0089EDB4 /* MultipeerCommunicator.swift in Sources */,
+				3AA0BD962181CF6A0089EDB4 /* MPCManagerDelegate.swift in Sources */,
 				3A719264217693F10038FC7D /* MessageCellConfiguration.swift in Sources */,
 				3A719259216F90440038FC7D /* ThemesViewController.m in Sources */,
 			);

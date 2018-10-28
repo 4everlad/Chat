@@ -7,9 +7,36 @@
 //
 
 import UIKit
+import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate  {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate, MPCManagerDelegate {
     
+    //without appDElegate
+//    var mpcManager: MultipeerCommunicator!
+    
+//
+    func foundPeer() {
+        print("foundPeer")
+        tableView.reloadData()
+    }
+
+    func lostPeer() {
+        print("lostPeer")
+//        tblPeers.reloadData()
+    }
+    
+    func invitationWasReceived(fromPeer: String) {
+        print("invitationWasReceived")
+        self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
+    }
+
+    func connectedWithPeer(peerID: MCPeerID) {
+        print("connectedWithPeer")
+    }
+    
+    //added from website
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+
     
     var conversations = [Conversation]()
     
@@ -73,29 +100,34 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        if section == 0 {
-            return onlineConversations.count
-        }
-        else {
-            return historyConversations.count
-        }
+//        if section == 0 {
+//            return onlineConversations.count
+//        }
+//        else {
+//            return historyConversations.count
+//        }
+        let peersNumber = appDelegate.mpcManager.foundPeers.count
+        print("peer: \(peersNumber)")
+        return peersNumber
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
-        return 95
+        return 85
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 2
+//        return 2
+        return 1
     }
     
     // TODO: HeaderSection
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
-        if section == 0 {
-            return "Online" }
-        else if section == 1 {
-            return "History"
-        } else { return nil }
+//        if section == 0 {
+//            return "Online" }
+//        else if section == 1 {
+//            return "History"
+//        } else { return nil }
+        return "online"
     }
     
     
@@ -106,23 +138,37 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         var conversation: Conversation!
         
-        if indexPath.section == 0 {
-            conversation = onlineConversations[indexPath.row]
-        } else if indexPath.section == 1 {
-            conversation = historyConversations[indexPath.row]
-        }
+        //need to change after
+//        if indexPath.section == 0 {
+////            conversation = onlineConversations[indexPath.row]
+//        } else if indexPath.section == 1 {
+//            conversation = historyConversations[indexPath.row]
+//        }
         
-        cell.name = conversation.name
-        cell.message = conversation.message
-        cell.date = conversation.date
-        cell.online = conversation.online
-        cell.hasUnreadMessages = conversation.hasUnreadMessages
+        //added from website
+        let peerID = appDelegate.mpcManager.foundPeers[indexPath.row]
+        cell.name = appDelegate.mpcManager.peerDictionary[peerID]
+//        cell.name = conversation.name
+//        cell.message = conversation.message
+//        cell.date = conversation.date
+//        cell.online = conversation.online
+//        cell.hasUnreadMessages = conversation.hasUnreadMessages
         
         return cell
     }
     
 
     override func viewDidLoad() {
+        
+//        mpcManager = MultipeerCommunicator()
+//        mpcManager.delegate = self
+        
+        //added from website
+//        appDelegate.mpcManager.browser.startBrowsingForPeers()
+        appDelegate.mpcManager.browser.startBrowsingForPeers()
+        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+//        isAdvertising = true
+        
         addConversations()
         
         super.viewDidLoad()
@@ -132,55 +178,33 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ConversationCell")
         // Do any additional setup after loading the view.
+        
+        //added from website
+        appDelegate.mpcManager.delegate = self
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
-    
-//    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
-//        if segue.identifier == "ShowConversationSegue" {
-//            if let indexPath = self.tableView.indexPathForSelectedRow {
-//                print("\(indexPath.row)")
-//
-//                var conversation: Conversation!
-//
-//                if indexPath.section == 0 {
-//                    conversation = onlineConversations[indexPath.row]
-//                } else if indexPath.section == 1 {
-//                    conversation = historyConversations[indexPath.row]
-//                }
-//
-//                let cellTitle = conversation.name
-//                if let destinationViewController = segue.destination as? ConversationViewController {
-//                    destinationViewController.cellTitle = cellTitle
-//                }
-//            }
-//        }
-//
-//        if segue.identifier == "ShowThemesSegue" {
-//            if let destinationViewController = segue.destination as? ThemesViewController {
-//                destinationViewController.delegate = self
-//                if let theme = self.view.backgroundColor {
-//                    destinationViewController.currentTheme = theme
-//                }
-//            }
-//        }
-//    }
+
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
                     
-        var conversation: Conversation!
-            
-        if indexPath.section == 0 {
-            conversation = onlineConversations[indexPath.row]
-        } else if indexPath.section == 1 {
-            conversation = historyConversations[indexPath.row]
-        }
+//        var conversation: Conversation!
         
-        let cellTitle = conversation.name
+//        if indexPath.section == 0 {
+//            conversation = onlineConversations[indexPath.row]
+//        } else if indexPath.section == 1 {
+//            conversation = historyConversations[indexPath.row]
+//        }
+        let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.row]
+        let cellTitle = appDelegate.mpcManager.peerDictionary[selectedPeer]
+        appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
+        
+//        let cellTitle = conversation.name
         
         if let conversationVC  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConversationViewController") as? ConversationViewController {
             conversationVC.cellTitle = cellTitle
@@ -190,18 +214,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         }
         
     }
-    
-    
-//    @IBAction func openThemesButton(_ sender: UIBarButtonItem) {
-//
-//        let themesVC = ThemesViewController(
-//                    nibName: "ThemesViewController",
-//                    bundle: nil)
-//                navigationController?.pushViewController(themesVC,
-//                                                         animated: true)
-//    }
-    
-    
     
     func logThemeChanging(selectedTheme: UIColor) {
         
@@ -234,4 +246,43 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     */
 
+    
+    //    override func prepare(for segue: UIStoryboardSegue, sender: Any?) {
+    //        if segue.identifier == "ShowConversationSegue" {
+    //            if let indexPath = self.tableView.indexPathForSelectedRow {
+    //                print("\(indexPath.row)")
+    //
+    //                var conversation: Conversation!
+    //
+    //                if indexPath.section == 0 {
+    //                    conversation = onlineConversations[indexPath.row]
+    //                } else if indexPath.section == 1 {
+    //                    conversation = historyConversations[indexPath.row]
+    //                }
+    //
+    //                let cellTitle = conversation.name
+    //                if let destinationViewController = segue.destination as? ConversationViewController {
+    //                    destinationViewController.cellTitle = cellTitle
+    //                }
+    //            }
+    //        }
+    //
+    //        if segue.identifier == "ShowThemesSegue" {
+    //            if let destinationViewController = segue.destination as? ThemesViewController {
+    //                destinationViewController.delegate = self
+    //                if let theme = self.view.backgroundColor {
+    //                    destinationViewController.currentTheme = theme
+    //                }
+    //            }
+    //        }
+    //    }
+    
+    //    @IBAction func openThemesButton(_ sender: UIBarButtonItem) {
+    //
+    //        let themesVC = ThemesViewController(
+    //                    nibName: "ThemesViewController",
+    //                    bundle: nil)
+    //                navigationController?.pushViewController(themesVC,
+    //                                                         animated: true)
+    //    }
 }

@@ -13,11 +13,16 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
     var window: UIWindow?
     
+    //added from website
+    var mpcManager: MultipeerCommunicator!
+    
     var log = LoggingLifeCycle()
 
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
 //        log.logStateAndMethod()
-        
+        //added from website
+        mpcManager = MultipeerCommunicator()
         // Override point for customization after application launch.
         return true
     }
@@ -48,7 +53,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 //        LoggingLifeCycle.logStateAndMethod()
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
-
 
 }
 
