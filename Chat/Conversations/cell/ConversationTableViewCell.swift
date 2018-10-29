@@ -41,7 +41,7 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
                 formatter.dateFormat = "dd MMM"
                 dateLabel.text = formatter.string(for: date)
             }
-            //print("time to print:\(String(secondsAgo))")
+            
         }
     }
     

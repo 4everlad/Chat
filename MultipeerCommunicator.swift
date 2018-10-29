@@ -24,7 +24,7 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
 
     var invitationHandler: ((Bool, MCSession?)->Void)!
 
-    func sendData(dictionaryWithData dictionary: Dictionary<String, String>, toPeer peersIDs: MCPeerID) -> Bool  {
+    func sendData(dictionaryWithData dictionary: String, toPeer peersIDs: MCPeerID) -> Bool  {
         let dataToSend = NSKeyedArchiver.archivedData(withRootObject: dictionary)
         let peersArray = [peersIDs]
 
@@ -42,7 +42,6 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
     }
     
     
-
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
         self.invitationHandler = invitationHandler
 
@@ -58,7 +57,6 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
         switch state{
         case MCSessionState.connected:
             print("Connected to session: \(session)")
-//            delegate?.connectedWithPeer(peerID: peerID)
 
         case MCSessionState.connecting:
             print("Connecting to session: \(session)")
@@ -70,8 +68,9 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
 
     func session(_ session: MCSession, didReceive data: Data, fromPeer peerID: MCPeerID) {
         print("receiving data")
-        let dictionary: [String: AnyObject] = ["data": data as AnyObject, "fromPeer": peerID]
-        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: dictionary)
+
+        NotificationCenter.default.post(name: NSNotification.Name(rawValue: "receiveData"), object: data)
+        
     }
 
     func session(_ session: MCSession, didReceive stream: InputStream, withName streamName: String, fromPeer peerID: MCPeerID) {
@@ -86,11 +85,9 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
         print("adv")
     }
 
-
-    //added from website
     func browser(_ browser: MCNearbyServiceBrowser, foundPeer peerID: MCPeerID, withDiscoveryInfo info: [String : String]?) {
         var isFound = false
-        for (index, aPeer) in [foundPeers].enumerated() { // ask why aPeer is showing [MCPeerID] type
+        for (index, _) in [foundPeers].enumerated() {
             if !foundPeers.isEmpty && foundPeers[index] == peerID {
                 print("foundPeer: \(foundPeers[index].displayName)")
                 isFound = true
@@ -107,9 +104,8 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
     }
 
 
-    //added from website
     func browser(_ browser: MCNearbyServiceBrowser, lostPeer peerID: MCPeerID) {
-        for (index, aPeer) in [foundPeers].enumerated() { // ask why aPeer is showing [MCPeerID] type
+        for (index, _) in [foundPeers].enumerated() {
             if foundPeers[index] == peerID {
                 foundPeers.remove(at: index)
                 peerDictionary.removeValue(forKey: peerID)
@@ -121,13 +117,10 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
         delegate?.lostPeer()
     }
 
-    //added from website
     func browser(_ browser: MCNearbyServiceBrowser, didNotStartBrowsingForPeers error: Error) {
         print(error.localizedDescription)
     }
 
-
-    //added from website
     override init() {
         super.init()
 

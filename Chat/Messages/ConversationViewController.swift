@@ -17,118 +17,76 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     var messages = [Message]()
     
-    var messagesArray: [Dictionary<String, String>] = []
-    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
-    func addConversations() {
+
+    @objc func receiveData(_ notification: Notification) {
+        let data = notification.object as! NSData
+        let receivedMessage = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! String
+        let message = Message(text: receivedMessage, mType: .from)
+        messages.append(message)
         
-        messages.append(Message(text: "Здравствуйте вавоавоаоваоваasd efefwef fdsfsdfs sdfsdfsdf sdfs вараврва оваовао ваовао ", mType: .from))
-        messages.append(Message(text: "Здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте здравствуйте ", mType: .from))
-        messages.append(Message(text: "Здравствуйте вавоавоаоваова sdfs здравствуйте здравствуйте здравствуйте ", mType: .to))
-        messages.append(Message(text: "Здравствуйте вавоавоаоваова sd", mType: .from))
-        messages.append(Message(text: "Здрdv dssdfsd sdf sdf fsdf fsdf sdf ", mType: .to))
-        messages.append(Message(text: "Здравствуйте вавоавоаsdfs sdf sdf ", mType: .from))
-        messages.append(Message(text: "вавоавоаsdfs sdf sdf ысысвсывс", mType: .from))
-        
-    }
-    
-    
-    func handleMPCReceivedDataWithNotification(notification: NSNotification) {
-        
-        let receivedDataDictionary = notification.object as! Dictionary<String, AnyObject>
-    
-        let data = receivedDataDictionary["data"] as? NSData
-        let fromPeer = receivedDataDictionary["fromPeer"] as! MCPeerID
-        
-        let dataDictionary = NSKeyedUnarchiver.unarchiveObject(with: data! as Data) as! Dictionary<String, String>
-        
-        if let message = dataDictionary["message"] {
-            
-        var messageDictionary: [String: String] = ["sender": fromPeer.displayName, "message": message]
-        messagesArray.append(messageDictionary)
-        self.updateTableview()
-            
-        }
+        self.updateTableView()
     }
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
-        
-        let messageDictionary: [String: String] = ["message": textField.text!]
+        let messageToSend = textField.text!
         let peerToSend = appDelegate.mpcManager.session.connectedPeers[0]
         
-        if appDelegate.mpcManager.sendData(dictionaryWithData: messageDictionary, toPeer: peerToSend) {
-            var dictionary: [String: String] = ["sender": "self", "message": textField.text!]
-            messagesArray.append(dictionary)
-            print("message array: \(messagesArray)")
+        if appDelegate.mpcManager.sendData(dictionaryWithData: messageToSend, toPeer: peerToSend) {
+            let message = Message(text: messageToSend, mType: .to)
+            messages.append(message)
+        } else {
+            return false
         }
-            
-        self.updateTableview()
-//        else{
-//            print("Could not send data")
-//        }
-        
+        self.updateTableView()
         textField.text = ""
-        
+
         return true
     }
 
-    func updateTableview(){
-        self.tableView.reloadData()
+    func updateTableView(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
+        }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messagesArray.count
+        return messages.count
     }
     
-    
-//    func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-//        return messages.count
-//    }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-//        let message = messages[indexPath.row]
-//
-//        switch message.mType {
-//        case .from:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "FromMessageCell", for: indexPath) as! FromMessageTableViewCell
-//            cell.textMessage = message.text
-//            return cell
-//        case .to:
-//            let cell = tableView.dequeueReusableCell(withIdentifier: "ToMessageCell", for: indexPath) as! ToMessageTableViewCell
-//            cell.textMessage = message.text
-//            return cell
-//        }
+        let message = messages[indexPath.row]
 
-        let message = messagesArray[indexPath.row] as Dictionary<String, String>
-        let sender = message["sender"]
-            if sender == "self" {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "ToMessageCell", for: indexPath) as! ToMessageTableViewCell
-                cell.textMessage = message["message"]
-                return cell
-            } else {
-                let cell = tableView.dequeueReusableCell(withIdentifier: "FromMessageCell", for: indexPath) as! FromMessageTableViewCell
-                cell.textMessage = message["message"]
-                return cell
-            }
+        switch message.mType {
+        case .from:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "FromMessageCell", for: indexPath) as! FromMessageTableViewCell
+            cell.textMessage = message.text
+            return cell
+        case .to:
+            let cell = tableView.dequeueReusableCell(withIdentifier: "ToMessageCell", for: indexPath) as! ToMessageTableViewCell
+            cell.textMessage = message.text
+            return cell
+        }
     }
     
-
+    @IBOutlet var sendButton: UIButton! 
     
     @IBOutlet var messageTextField: UITextField!
     
-
     @IBOutlet weak var tableView: UITableView!
     
-
+    
+    @IBAction func sendMessage(_ sender: Any) {
+        textFieldShouldReturn(messageTextField)
+    }
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
         self.title = cellTitle
-        
-        addConversations()
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
@@ -142,9 +100,9 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         
         messageTextField.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: NSNotification.Name(rawValue: "receivedMPCDataNotification"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: NSNotification.Name(rawValue: "receiveData"), object: nil)
 
-//        NSNotificationCenter.defaultCenter().addObserver(self, selector: "handleMPCReceivedDataWithNotification:", name: "receivedMPCDataNotification", object: nil)
+
 
         // Do any additional setup after loading the view.
     }
