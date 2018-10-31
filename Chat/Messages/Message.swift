@@ -16,10 +16,13 @@ class Message {
         case to
     }
     
+    var date: Date
+    
     let mType: messageType
     
     init(text: String, mType: messageType) {
         self.text = text
         self.mType = mType
+        date = Date()
     }
 }

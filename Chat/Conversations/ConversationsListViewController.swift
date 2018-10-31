@@ -9,8 +9,27 @@
 import UIKit
 import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate, MPCManagerDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate, MPCManagerDelegate, ConversationDelegate {
     
+    
+    func printCoversation() {
+        if !conversations.isEmpty {
+            for (key,value) in conversations {
+                var lastMessage = value?.last
+                print("conversation = \(lastMessage?.text)")
+            }
+        } else {
+            print ("conversations is empty")
+        }
+        
+    }
+    
+    
+    var conversations = [MCPeerID?: [Message]?]()
+    
+    func addConversation(peerID: MCPeerID, conversation: [Message]) {
+        conversations[peerID] = conversation
+    }
 
     func foundPeer() {
         print("foundPeer")
@@ -31,23 +50,27 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         print("connectedWithPeer")
     }
     
+    
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    var conversations = [Conversation]()
     
-    var onlineConversations: [Conversation] {
-        get {
-            return conversations.filter { $0.online }
-        }
-    }
     
-    var historyConversations: [Conversation] {
-        get {
-            return conversations.filter { $0.online == false && $0.message != nil }
-        }
-    }
+//    var onlineConversations: [Conversation] {
+//        get {
+//            return conversations.filter { $0.online }
+//        }
+//    }
+//
+//    var historyConversations: [Conversation] {
+//        get {
+//            return conversations.filter { $0.online == false && $0.message != nil }
+//        }
+//    }
     
     @IBOutlet weak var tableView: UITableView!
+    
+    
     
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
@@ -75,8 +98,14 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
         
         let peerID = appDelegate.mpcManager.foundPeers[indexPath.row]
-        cell.name = appDelegate.mpcManager.peerDictionary[peerID]
-
+        let userName = appDelegate.mpcManager.peerDictionary[peerID]
+        cell.name = userName
+        if let messagesInfo = conversations[peerID] {
+            if let lastMessage = messagesInfo?.last {
+                cell.message = lastMessage.text
+                cell.date = lastMessage.date
+            }
+        }
         
         
 //        cell.name = conversation.name
@@ -93,7 +122,6 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         appDelegate.mpcManager.browser.startBrowsingForPeers()
         appDelegate.mpcManager.advertiser.startAdvertisingPeer()
-
         
         super.viewDidLoad()
         self.tableView.dataSource = self
@@ -105,6 +133,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         appDelegate.mpcManager.delegate = self
         
+        printCoversation()
+        
+        
+        
     }
     
     override func viewDidAppear(_ animated: Bool) {
@@ -115,16 +147,20 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-                    
 
         let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.row]
+//        let peerID = selectedPeer.
         let cellTitle = appDelegate.mpcManager.peerDictionary[selectedPeer]
+        
         appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
         
         if let conversationVC  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConversationViewController") as? ConversationViewController {
             conversationVC.cellTitle = cellTitle
+            conversationVC.delegate = self
+            
             if let navigator = navigationController {
                 navigator.pushViewController(conversationVC, animated: true)
+                conversations[selectedPeer] = nil
             }
         }
         
@@ -200,4 +236,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     //                navigationController?.pushViewController(themesVC,
     //                                                         animated: true)
     //    }
+}
+
+protocol ConversationDelegate {
+    func addConversation(peerID: MCPeerID, conversation: [Message])
+    func printCoversation()
 }

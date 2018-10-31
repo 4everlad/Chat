@@ -17,31 +17,46 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     var messages = [Message]()
     
+    var delegate: ConversationDelegate?
+    
     let appDelegate = UIApplication.shared.delegate as! AppDelegate
-
+    
+    
     @objc func receiveData(_ notification: Notification) {
         let data = notification.object as! NSData
         let receivedMessage = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! String
+        let peerID = appDelegate.mpcManager.session.connectedPeers[0]
         let message = Message(text: receivedMessage, mType: .from)
+        
+        //var conversation = conversations[peerID]
+        //        conversation.append()
+        //        conversations[peerID]
+        
+        
         messages.append(message)
+        delegate?.addConversation(peerID: peerID, conversation: messages)
+        delegate?.printCoversation()
         
         self.updateTableView()
     }
     
+    
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         let messageToSend = textField.text!
-        let peerToSend = appDelegate.mpcManager.session.connectedPeers[0]
+        let peerID = appDelegate.mpcManager.session.connectedPeers[0]
+        delegate?.printCoversation()
         
-        if appDelegate.mpcManager.sendData(dictionaryWithData: messageToSend, toPeer: peerToSend) {
+        if appDelegate.mpcManager.sendData(dictionaryWithData: messageToSend, toPeer: peerID) {
             let message = Message(text: messageToSend, mType: .to)
             messages.append(message)
+            delegate?.addConversation(peerID: peerID, conversation: messages)
         } else {
             return false
         }
         self.updateTableView()
         textField.text = ""
-
+        
         return true
     }
 
@@ -72,7 +87,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         }
     }
     
-    @IBOutlet var sendButton: UIButton! 
+    @IBOutlet var sendButton: UIButton!
     
     @IBOutlet var messageTextField: UITextField!
     
@@ -86,10 +101,13 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     override func viewDidLoad() {
         super.viewDidLoad()
         
+        
         self.title = cellTitle
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
+        
+        
         
         tableView.register(UINib(nibName: "FromMessageTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "FromMessageCell")
         

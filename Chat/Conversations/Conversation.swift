@@ -12,14 +12,14 @@ class Conversation {
     var name : String?
     var message : String?
     var date : Date?
-    var online : Bool
-    var hasUnreadMessages : Bool
+    var online : Bool = false
+    var hasUnreadMessages : Bool = false
     
-    init (name: String?, message: String?, date: Date?, online : Bool, hasUnreadMessages : Bool) {
-        self.name = name
-        self.message = message
-        self.date = date
-        self.online = online
-        self.hasUnreadMessages = hasUnreadMessages
-    }
+//    init (name: String?, message: String?, date: Date?, online : Bool, hasUnreadMessages : Bool) {
+//        self.name = name
+//        self.message = message
+//        self.date = date
+//        self.online = online
+//        self.hasUnreadMessages = hasUnreadMessages
+//    }
 }
