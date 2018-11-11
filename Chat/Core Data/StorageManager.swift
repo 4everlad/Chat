@@ -11,23 +11,9 @@ import Foundation
 class StorageManager: CoreDataStack {
     
     let stack = CoreDataStack.shared
-//    private let manager = CoreDataStack.sharedInstance
-    
-//    func readProfile() -> User {
-//
-//        return
-//    }
-    
-    
-//    func insertData(data: User) {
-//        if saveUserData(data: data) {
-//            print("idite v pizdu")
-//        } else {print("idite nahui")}
-//    }
-    
+
     func readData() -> User {
         let userData = User()
-//        stack.readUserData()
         if let data = stack.readUserData() {
             userData.userName = data.userName
             userData.userInfo = data.userInfo
@@ -37,10 +23,6 @@ class StorageManager: CoreDataStack {
         }
         return userData
     }
-    
-//    init () {
-//        super.init()
-//    }
     
     func saveData(data: User) -> Bool {
         guard stack.saveUserData(data: data) else {

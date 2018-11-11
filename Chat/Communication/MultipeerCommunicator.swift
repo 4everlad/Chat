@@ -112,12 +112,12 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
     func advertiser(_ advertiser: MCNearbyServiceAdvertiser, didReceiveInvitationFromPeer peerID: MCPeerID, withContext context: Data?, invitationHandler: @escaping (Bool, MCSession?) -> Void) {
 //        self.invitationHandler = invitationHandler
         let session = sessions[peerID.displayName]
-        if session!.connectedPeers.contains(peerID) {
-            invitationHandler(false, nil)
-        } else {
-            invitationHandler(true, session)
-        }
-//        invitationHandler(true, session)
+//        if session!.connectedPeers.contains(peerID) {
+//            invitationHandler(false, nil)
+//        } else {
+//            invitationHandler(true, session)
+//        }
+        invitationHandler(true, session)
         print("Invitation Was Received")
         
 //        delegate?.invitationWasReceived(fromPeer: peerID.displayName)
@@ -145,8 +145,6 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
 //        print("receiving data")
         let receivedMessage = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! String
         delegate?.didReceiveMessage(text: receivedMessage, fromUser: peerID.displayName, toUser: peer.displayName)
-//
-//        NotificationCenter.default.post(name: NSNotification.Name(rawValue: ""), object: data)
         
         
     }
@@ -167,13 +165,8 @@ class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyS
 
     override init() {
         super.init()
-        
-//        online = true
 
         peer = MCPeerID(displayName: UIDevice.current.name)
-
-//        session = MCSession(peer: peer)
-//        session.delegate = self
 
         browser = MCNearbyServiceBrowser(peer: peer, serviceType: "tinkoff-chat")
         browser.delegate = self

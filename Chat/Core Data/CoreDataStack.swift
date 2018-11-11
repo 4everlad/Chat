@@ -154,37 +154,8 @@ class CoreDataStack {
         }
     }
     
-    
-    //    public func performSave(context: NSManagedObjectContext, completionHandler : ) {
-    //    init() {
-    //
-    //    }
-    
-//    func readUser() -> User {
-//
-//    }
-//    func saveUserData() -> Bool {
-//        
-//    }
-//    func deleteAllRecords() {
-//        let delegate = UIApplication.shared.delegate as! AppDelegate
-//        let context = delegate.persistentContainer.viewContext
-//
-//        let deleteFetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AppUser")
-//        let deleteRequest = NSBatchDeleteRequest(fetchRequest: deleteFetch)
-//
-//        do {
-//            try saveContext.execute(deleteRequest)
-//            try saveContext.save()
-//        } catch {
-//            print ("There was an error")
-//        }
-//    }
-    
     func readUserData() -> AppUser? {
-//    func readUserData() {
-//        let userData = User()
-//        deleteAllRecords()
+
         let data = AppUser.findOrInsertAppUser(in: masterContext!)
         performSave(context: masterContext!, completionHandler: nil)
         
@@ -213,50 +184,15 @@ class CoreDataStack {
 
 extension AppUser {
     
-//    static func findOrInsertAppUser()
-    
-//    func readUserData() -> User? {
-//
-//    }
-    
-    
     static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
         let templateName = "AppUser"
         guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
             print(false, "No template with name \(templateName)!")
             return nil
         }
-//        guard let request = model.fetch
+
         return fetchRequest
     }
-    
-//    static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-//        guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else { return nil
-//        }
-////        if let image = data.userImage!.pngData() {
-////            appUser.userImage = image
-////        }
-//        appUser.userName = "хуй"
-//        appUser.userInfo = "пизда"
-////        performSave(context: context, completionHandler: nil)
-//
-//        return appUser
-//    }
-    
-//    static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-//        if let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser {
-//            appUser.userName = "хуй"
-//            appUser.userInfo = "пизда"
-//            return appUser
-//        } else { return nil
-//        }
-//        //        if let image = data.userImage!.pngData() {
-//        //            appUser.userImage = image
-//        //        }
-//
-//        //        performSave(context: context, completionHandler: nil)
-//
-//    }
     
     static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
         guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else { print("cannot insert a record")
@@ -264,61 +200,6 @@ extension AppUser {
         }
         return appUser
     }
-    
-    
-    
-    
-//    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
-//            print("model is unavailable in this cotext!")
-//            assert(false)
-//            return nil
-//        }
-//
-//        var appUser: AppUser?
-////
-////        let fetchRequest = AppUser.fetchRequestAppUser(model: model)
-//
-////        let results
-////        let result = try managedObjectContext.executeRequest(request)
-//
-//        if let fetchResult = AppUser.fetchRequestAppUser(model: model) {
-//            do {
-//                let results = try context.fetch(fetchResult)
-//                print(results.count)
-//                var test = User()
-//                var result = results.first
-//                test.userName = result?.userName
-//                test.userInfo = result?.userInfo
-//                print ("пидоры")
-//                print (test.userName)
-//                print (test.userInfo)
-//                assert(results.count<2, "multiple appUsersFound!")
-////                if results.count==12{
-////                    let fetch = NSFetchRequest<NSFetchRequestResult>(entityName: "AppUser")
-////                    let request = NSBatchDeleteRequest(fetchRequest: fetch)
-////                }
-//
-//
-//                if let userFound = results.first {
-//                    appUser = userFound
-//                    print("user found")
-//                }
-//            } catch {
-//                print(error.localizedDescription)
-//            }
-//
-//        } else {
-//
-//            if appUser == nil {
-//                appUser = AppUser.insertAppUser(in: context)
-//                print("user inserted")
-//            }
-//        }
-//
-//        return appUser
-//    }
-    
     
     static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
         guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
