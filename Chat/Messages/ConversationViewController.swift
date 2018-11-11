@@ -15,65 +15,83 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     var message: String?
     
-    var messages = [Message]()
+//    var messages = [Message]()
     
-    var delegate: ConversationDelegate?
+    var userID: String!
     
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    var delegate: CommunicationManager!
     
+//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
     
-    @objc func receiveData(_ notification: Notification) {
-        let data = notification.object as! NSData
-        let receivedMessage = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! String
-        let peerID = appDelegate.mpcManager.session.connectedPeers[0]
-        let message = Message(text: receivedMessage, mType: .from)
-        
-        //var conversation = conversations[peerID]
-        //        conversation.append()
-        //        conversations[peerID]
-        
-        
-        messages.append(message)
-        delegate?.addConversation(peerID: peerID, conversation: messages)
-        delegate?.printCoversation()
-        
-        self.updateTableView()
-    }
+//    @objc func receiveData(_ notification: Notification) {
+//        let data = notification.object as! NSData
+//        let receivedMessage = NSKeyedUnarchiver.unarchiveObject(with: data as Data) as! String
+////        let peerID = appDelegate.mpcManager.session.connectedPeers[0]
+//        let message = Message(text: receivedMessage, mType: .from)
+//
+//        //var conversation = conversations[peerID]
+//        //        conversation.append()
+//        //        conversations[peerID]
+//
+//        messages.append(message)
+//
+//        //delegation from Conversations LISST
+////        delegate?.addConversation(peerID: peerID, conversation: messages)
+////        delegate?.printCoversation()
+//
+//        self.updateTableView()
+//    }
     
     
     func textFieldShouldReturn(_ textField: UITextField) -> Bool {
         textField.resignFirstResponder()
         let messageToSend = textField.text!
-        let peerID = appDelegate.mpcManager.session.connectedPeers[0]
-        delegate?.printCoversation()
+        delegate?.sendMessage(string: messageToSend, toUserID: userID, completionHandler: nil)
+        let message = Message(text: messageToSend, mType: .to)
+        delegate?.userConversations[userID!]?.messages!.append(message)
+//        messages.append(message)
+//        updateData()
         
-        if appDelegate.mpcManager.sendData(dictionaryWithData: messageToSend, toPeer: peerID) {
-            let message = Message(text: messageToSend, mType: .to)
-            messages.append(message)
-            delegate?.addConversation(peerID: peerID, conversation: messages)
-        } else {
-            return false
-        }
-        self.updateTableView()
         textField.text = ""
+        self.tableView.reloadData()
         
         return true
+        
+//        let peerID = appDelegate.mpcManager.session.connectedPeers[0]
+        
+        //delegation from Conversations LISST
+//        delegate?.printCoversation()
+        
+//        if appDelegate.mpcManager.sendData(dictionaryWithData: messageToSend, toPeer: peerID) {
+//            let message = Message(text: messageToSend, mType: .to)
+//            messages.append(message)
+//            
+//            //delegation from Conversations LISST
+////            delegate?.addConversation(peerID: peerID, conversation: messages)
+//            
+//        } else {
+//            return false
+//        }
+//        self.updateTableView()
+//        textField.text = ""
+        
+        
     }
 
-    func updateTableView(){
+    @objc func updateTableView(_ notification: Notification){
         DispatchQueue.main.async {
             self.tableView.reloadData()
         }
     }
     
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return messages.count
+        return delegate!.userConversations[userID!]!.messages!.count
     }
     
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        let message = messages[indexPath.row]
+        let message = delegate!.userConversations[userID!]!.messages![indexPath.row]
 
         switch message.mType {
         case .from:
@@ -93,21 +111,19 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
     
     @IBOutlet weak var tableView: UITableView!
     
-    
     @IBAction func sendMessage(_ sender: Any) {
         textFieldShouldReturn(messageTextField)
     }
     
     override func viewDidLoad() {
-        super.viewDidLoad()
         
+//        prepareData()
+        super.viewDidLoad()
         
         self.title = cellTitle
         
         self.tableView.dataSource = self
         self.tableView.delegate = self
-        
-        
         
         tableView.register(UINib(nibName: "FromMessageTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "FromMessageCell")
         
@@ -118,7 +134,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         
         messageTextField.delegate = self
         
-        NotificationCenter.default.addObserver(self, selector: #selector(receiveData(_:)), name: NSNotification.Name(rawValue: "receiveData"), object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateTableView(_:)), name: NSNotification.Name(rawValue: "updateTableView"), object: nil)
 
 
 
@@ -130,6 +146,16 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         self.tableView.reloadData()
     }
     
+//    func updateData() {
+//        delegate?.userConversations[userID!]?.messages = messages
+//    }
+    
+//    func prepareData() {
+//        let conversation = delegate?.userConversations[userID!]
+//        if conversation?.messages != nil {
+//            messages = (conversation?.messages)!
+//        }
+//    }
 
     /*
     // MARK: - Navigation

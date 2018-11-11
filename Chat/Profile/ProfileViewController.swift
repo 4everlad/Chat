@@ -7,14 +7,21 @@
 //
 
 import UIKit
+import CoreData
 
 class ProfileViewController: UIViewController, UIImagePickerControllerDelegate,
 UINavigationControllerDelegate, UITextViewDelegate {
     
+    let manager = StorageManager()
+    
  //   var log = LoggingLifeCycle()
+    
+//    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
 
-    let gcd = GCDDataManager()
-    let operation = OperationDataManager()
+
+//    let gcd = GCDDataManager()
+//    let operation = OperationDataManager()
     
     @IBOutlet weak var editButton: UIButton!
 
@@ -26,9 +33,9 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     @IBOutlet var userInfoTextView: UITextView!
     
-    @IBOutlet var gcdButton: UIButton!
+    @IBOutlet var saveButton: UIButton!
     
-    @IBOutlet var operationButton: UIButton!
+//    @IBOutlet var operationButton: UIButton!
     
     @IBOutlet var savingActivityIndicator: UIActivityIndicatorView!
     
@@ -39,10 +46,10 @@ UINavigationControllerDelegate, UITextViewDelegate {
         
         chooseImageButton.isHidden = false
         
-        gcdButton.isHidden = false
-        gcdButton.isEnabled = false
-        operationButton.isHidden = false
-        operationButton.isEnabled = false
+        saveButton.isHidden = false
+        saveButton.isEnabled = false
+//        operationButton.isHidden = false
+//        operationButton.isEnabled = false
         
         userNameTextField.isUserInteractionEnabled = true
         userNameTextField.font = UIFont(name: "System", size: 14)
@@ -55,92 +62,105 @@ UINavigationControllerDelegate, UITextViewDelegate {
         
     }
     
-    @IBAction func saveWithGCD(_ sender: Any) {
+    @IBAction func saveProfile(_ sender: Any) {
+        
+        let data = User()
         
         savingActivityIndicator.isHidden = false
         savingActivityIndicator.startAnimating()
-        gcdButton.isEnabled = false
-        operationButton.isEnabled = false
+        saveButton.isEnabled = false
         
-        if gcd.userName == userNameTextField.text {
-            gcd.userName = nil
-        } else { gcd.userName = userNameTextField.text }
+    
         
-        if gcd.userInfo == userInfoTextView.text {
-            gcd.userInfo = nil
-        } else { gcd.userInfo = userInfoTextView.text }
+//        operationButton.isEnabled = false
         
-        if gcd.userImage == userImage.image {
-            gcd.userImage = nil
-        } else { gcd.userImage = userImage.image }
+        data.userName = userNameTextField.text
+        data.userInfo = userInfoTextView.text
+        data.userImage = userImage.image
         
-        let savingResult = gcd.saveData()
-
-        if savingResult {
-            let alertController = UIAlertController(title: "Данные сохранены",
-                                                    message: nil,
-                                                    preferredStyle: .alert)
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-            self.present(alertController, animated: true)
-        } else {
-            let alertController = UIAlertController(title: "Ошибка",
-                                                    message: "Не удалось сохранить данные",
-                                                    preferredStyle: .alert)
-
-            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
-
-            alertController.addAction(UIAlertAction(title: "Повторить", style: .default) { (action:UIAlertAction) in self.saveWithGCD((Any).self) });
-
-                self.present(alertController, animated: true)
-            }
+        manager.saveData(data: data)
         
-        gcd.readData()
-                
-        userNameTextField.text = gcd.userName
-        userInfoTextView.text = gcd.userInfo
-        userImage.image = gcd.userImage
+//        manager.insertData(data: data)
+        
+//        if gcd.userName == userNameTextField.text {
+//            gcd.userName = nil
+//        } else { gcd.userName = userNameTextField.text }
+//
+//        if gcd.userInfo == userInfoTextView.text {
+//            gcd.userInfo = nil
+//        } else { gcd.userInfo = userInfoTextView.text }
+//
+//        if gcd.userImage == userImage.image {
+//            gcd.userImage = nil
+//        } else { gcd.userImage = userImage.image }
+//
+//        let savingResult = gcd.saveData()
+//
+//        if savingResult {
+//            let alertController = UIAlertController(title: "Данные сохранены",
+//                                                    message: nil,
+//                                                    preferredStyle: .alert)
+//            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//            self.present(alertController, animated: true)
+//        } else {
+//            let alertController = UIAlertController(title: "Ошибка",
+//                                                    message: "Не удалось сохранить данные",
+//                                                    preferredStyle: .alert)
+//
+//            alertController.addAction(UIAlertAction(title: "OK", style: .default, handler: nil))
+//
+//            alertController.addAction(UIAlertAction(title: "Повторить", style: .default) { (action:UIAlertAction) in self.saveWithGCD((Any).self) });
+//
+//                self.present(alertController, animated: true)
+//            }
+//
+//        gcd.readData()
+//
+//        userNameTextField.text = gcd.userName
+//        userInfoTextView.text = gcd.userInfo
+//        userImage.image = gcd.userImage
         
         backToViewMode()
         
     }
     
-    @IBAction func saveWithOperation(_ sender: Any) {
-        savingActivityIndicator.isHidden = false
-        savingActivityIndicator.startAnimating()
-        gcdButton.isEnabled = false
-        operationButton.isEnabled = false
-        
-        if operation.userName == userNameTextField.text {
-            operation.userName = nil
-        } else { operation.userName = userNameTextField.text }
-        
-        if operation.userInfo == userInfoTextView.text {
-            operation.userInfo = nil
-        } else { operation.userInfo = userInfoTextView.text }
-        
-        if operation.userImage == userImage.image {
-            operation.userImage = nil
-        } else { operation.userImage = userImage.image }
-        
-        operation.saveData()
-        operation.readData()
-        
-        userNameTextField.text = operation.userName
-        userInfoTextView.text = operation.userInfo
-        userImage.image = operation.userImage
-        
-//        savingAlert(isSucceeded: true, isGCD: true)
-        backToViewMode()
-    }
+//    @IBAction func saveWithOperation(_ sender: Any) {
+//        savingActivityIndicator.isHidden = false
+//        savingActivityIndicator.startAnimating()
+//        gcdButton.isEnabled = false
+//        operationButton.isEnabled = false
+//
+//        if operation.userName == userNameTextField.text {
+//            operation.userName = nil
+//        } else { operation.userName = userNameTextField.text }
+//
+//        if operation.userInfo == userInfoTextView.text {
+//            operation.userInfo = nil
+//        } else { operation.userInfo = userInfoTextView.text }
+//
+//        if operation.userImage == userImage.image {
+//            operation.userImage = nil
+//        } else { operation.userImage = userImage.image }
+//
+//        operation.saveData()
+//        operation.readData()
+//
+//        userNameTextField.text = operation.userName
+//        userInfoTextView.text = operation.userInfo
+//        userImage.image = operation.userImage
+//
+////        savingAlert(isSucceeded: true, isGCD: true)
+//        backToViewMode()
+//    }
     
     @objc private func textFieldDidChange(_ textField: UITextField) {
-        gcdButton.isEnabled = true
-        operationButton.isEnabled = true
+        saveButton.isEnabled = true
+//        operationButton.isEnabled = true
     }
     
     func textViewDidChange(_ textView: UITextView) {
-        gcdButton.isEnabled = true
-        operationButton.isEnabled = true
+        saveButton.isEnabled = true
+//        operationButton.isEnabled = true
     }
     
     
@@ -160,8 +180,8 @@ UINavigationControllerDelegate, UITextViewDelegate {
         editButton.isEnabled = true
         editButton.isHidden = false
         
-        gcdButton.isHidden = true
-        operationButton.isHidden = true
+        saveButton.isHidden = true
+//        operationButton.isHidden = true
         
         savingActivityIndicator.isHidden = true
         
@@ -251,6 +271,12 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
     override func viewDidLoad() {
         super.viewDidLoad()
         
+//        let context = appDelegate.persistentContainer.viewContext
+        
+//        let entity = NSEntityDescription.entity(forEntityName: "Users", in: context)
+//        let newUser = NSManagedObject(entity: entity!, insertInto: context)
+        
+        
         userNameTextField.addTarget(self, action: #selector(textFieldDidChange(_:)), for: .editingChanged)
 
         userInfoTextView.delegate = self
@@ -259,30 +285,33 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         editButton.layer.borderWidth = 1.0
         chooseImageButton.isHidden = true
         
-        gcdButton.isHidden = true
-        operationButton.isHidden = true
+        saveButton.isHidden = true
+//        operationButton.isHidden = true
 
         userNameTextField.isUserInteractionEnabled = false
         userInfoTextView.isUserInteractionEnabled = false
         
         savingActivityIndicator.isHidden = true
         
-        gcd.readData()
         
-        if let image = gcd.userImage {
+        
+        let dataProfile = manager.readData()
+        
+        
+        if let image = dataProfile.userImage {
             userImage.image = image
         } else {
             userImage.image = #imageLiteral(resourceName: "UserPlaceholder")
         }
-        
-        if let name = gcd.userName {
+//
+        if let name = dataProfile.userName {
             userNameTextField.text = name
         } else { userNameTextField.text = "Your Name" }
-        
-        if let info = gcd.userInfo {
+//
+        if let info = dataProfile.userInfo {
             userInfoTextView.text = info
         } else { userInfoTextView.text = "Your Profile Information" }
- //       log.printMethod()
+// //       log.printMethod()
         
         print("editButton frame:\(editButton.layer.frame)")
         

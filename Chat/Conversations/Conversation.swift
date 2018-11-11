@@ -15,6 +15,7 @@ class Conversation {
     var online : Bool = false
     var hasUnreadMessages : Bool = false
     
+    var messages : [Message]?
 //    init (name: String?, message: String?, date: Date?, online : Bool, hasUnreadMessages : Bool) {
 //        self.name = name
 //        self.message = message

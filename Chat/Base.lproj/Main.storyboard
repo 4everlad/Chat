@@ -1,11 +1,11 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14313.18" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aM6-V7-f8a">
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.Storyboard.XIB" version="3.0" toolsVersion="14460.31" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES" initialViewController="aM6-V7-f8a">
     <device id="retina4_0" orientation="portrait">
         <adaptation id="fullscreen"/>
     </device>
     <dependencies>
         <deployment identifier="iOS"/>
-        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14283.14"/>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="14460.20"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
     </dependencies>
@@ -147,15 +147,14 @@
                                 <nil key="highlightedColor"/>
                             </label>
                             <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DCs-8d-Hck">
-                                <rect key="frame" x="16" y="505" width="132" height="47"/>
+                                <rect key="frame" x="16" y="505" width="288" height="47"/>
                                 <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                                 <constraints>
-                                    <constraint firstAttribute="width" relation="greaterThanOrEqual" constant="132" id="GzJ-bF-qnh"/>
                                     <constraint firstAttribute="height" constant="47" id="Kiw-AN-nCo"/>
                                 </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="21"/>
                                 <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="GCD"/>
+                                <state key="normal" title="Сохранить"/>
                                 <userDefinedRuntimeAttributes>
                                     <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
                                         <integer key="value" value="15"/>
@@ -164,24 +163,7 @@
                                 </userDefinedRuntimeAttributes>
                                 <connections>
                                     <action selector="editProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="spI-er-8c9"/>
-                                    <action selector="saveWithGCD:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hq7-PR-P4g"/>
-                                </connections>
-                            </button>
-                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="roundedRect" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="wZm-hU-GxA">
-                                <rect key="frame" x="172" y="505" width="132" height="47"/>
-                                <color key="backgroundColor" red="0.99942404029999998" green="0.98555368190000003" blue="0.0" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="21"/>
-                                <color key="tintColor" white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
-                                <state key="normal" title="Operation"/>
-                                <userDefinedRuntimeAttributes>
-                                    <userDefinedRuntimeAttribute type="number" keyPath="layer.cornerRadius">
-                                        <integer key="value" value="15"/>
-                                    </userDefinedRuntimeAttribute>
-                                    <userDefinedRuntimeAttribute type="boolean" keyPath="layer.maskToBounds" value="YES"/>
-                                </userDefinedRuntimeAttributes>
-                                <connections>
-                                    <action selector="editProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="3S9-w5-4wu"/>
-                                    <action selector="saveWithOperation:" destination="BYZ-38-t0r" eventType="touchUpInside" id="GZg-JC-Dtf"/>
+                                    <action selector="saveProfile:" destination="BYZ-38-t0r" eventType="touchUpInside" id="hq7-PR-P4g"/>
                                 </connections>
                             </button>
                             <activityIndicatorView opaque="NO" contentMode="scaleToFill" horizontalHuggingPriority="750" verticalHuggingPriority="750" style="whiteLarge" translatesAutoresizingMaskIntoConstraints="NO" id="Lxr-RM-Pig">
@@ -190,17 +172,15 @@
                         </subviews>
                         <color key="backgroundColor" red="1" green="1" blue="1" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
                         <constraints>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="wZm-hU-GxA" secondAttribute="trailing" constant="16" id="2C9-KC-ovj"/>
+                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="DCs-8d-Hck" secondAttribute="trailing" constant="16" id="0ay-ML-o2b"/>
                             <constraint firstItem="70D-qh-vqf" firstAttribute="top" secondItem="Fg8-qP-VAc" secondAttribute="bottom" id="4b9-Rm-SDM"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="DCs-8d-Hck" secondAttribute="bottom" constant="16" id="5R1-Zd-OTJ"/>
                             <constraint firstItem="V8R-vt-b1j" firstAttribute="top" secondItem="70D-qh-vqf" secondAttribute="bottom" constant="30" id="5qU-3G-nGj"/>
                             <constraint firstItem="PcU-mf-dr7" firstAttribute="top" secondItem="G1S-cr-8aO" secondAttribute="bottom" constant="10" id="AIy-X7-cBd"/>
-                            <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="wZm-hU-GxA" secondAttribute="bottom" constant="16" id="DW4-PS-zy6"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" secondItem="V8R-vt-b1j" secondAttribute="trailing" constant="16" id="Dk9-iX-FpZ"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="bottom" secondItem="PcU-mf-dr7" secondAttribute="bottom" constant="16" id="EXx-Mm-0B1"/>
                             <constraint firstItem="Lxr-RM-Pig" firstAttribute="centerY" secondItem="8bC-Xf-vdC" secondAttribute="centerY" id="FRS-Ja-dDO"/>
                             <constraint firstItem="Fg8-qP-VAc" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" id="IVq-tC-RNR"/>
-                            <constraint firstItem="wZm-hU-GxA" firstAttribute="width" secondItem="DCs-8d-Hck" secondAttribute="width" id="Jcq-XN-fsa"/>
                             <constraint firstItem="mX0-7S-bor" firstAttribute="bottom" secondItem="70D-qh-vqf" secondAttribute="bottom" id="KMk-bL-sTN"/>
                             <constraint firstItem="mX0-7S-bor" firstAttribute="trailing" secondItem="70D-qh-vqf" secondAttribute="trailing" id="LOR-qe-0zI"/>
                             <constraint firstItem="PcU-mf-dr7" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="OHl-7A-WZy"/>
@@ -224,16 +204,13 @@
                             <constraint firstItem="70D-qh-vqf" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="pqk-9h-DuG"/>
                             <constraint firstItem="6Tk-OE-BBY" firstAttribute="trailing" relation="lessThanOrEqual" secondItem="Vzd-By-7DX" secondAttribute="trailing" constant="254" id="rF7-c3-lEc"/>
                             <constraint firstItem="Vzd-By-7DX" firstAttribute="leading" secondItem="6Tk-OE-BBY" secondAttribute="leading" constant="16" id="rIr-Oh-FT6"/>
-                            <constraint firstItem="wZm-hU-GxA" firstAttribute="leading" secondItem="DCs-8d-Hck" secondAttribute="trailing" constant="24" id="rX9-g9-kgs"/>
-                            <constraint firstItem="wZm-hU-GxA" firstAttribute="top" secondItem="G1S-cr-8aO" secondAttribute="bottom" constant="10" id="zEP-QR-1g4"/>
                         </constraints>
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <connections>
                         <outlet property="chooseImageButton" destination="mX0-7S-bor" id="elX-Di-ovL"/>
                         <outlet property="editButton" destination="PcU-mf-dr7" id="PLl-dA-Mge"/>
-                        <outlet property="gcdButton" destination="DCs-8d-Hck" id="SLk-eR-RDN"/>
-                        <outlet property="operationButton" destination="wZm-hU-GxA" id="6Ly-pJ-QW5"/>
+                        <outlet property="saveButton" destination="DCs-8d-Hck" id="SLk-eR-RDN"/>
                         <outlet property="savingActivityIndicator" destination="Lxr-RM-Pig" id="aUb-an-khD"/>
                         <outlet property="userImage" destination="70D-qh-vqf" id="fnf-84-Tbj"/>
                         <outlet property="userInfoTextView" destination="G1S-cr-8aO" id="LJa-Tb-Uie"/>

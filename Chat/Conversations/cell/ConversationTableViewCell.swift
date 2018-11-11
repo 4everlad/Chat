@@ -29,17 +29,18 @@ class ConversationTableViewCell: UITableViewCell, ConversationCellConfiguration 
     
     var date: Date? {
         didSet {
-        
-            let secondsAgo = Int(Date().timeIntervalSince(date!))
-            let day = 24 * 60 * 60
-            let formatter = DateFormatter()
-            
-            if secondsAgo < day {
-                formatter.dateFormat = "HH:mm"
-                dateLabel.text = formatter.string(for: date)
-            } else {
-                formatter.dateFormat = "dd MMM"
-                dateLabel.text = formatter.string(for: date)
+            if date != nil {
+                let secondsAgo = Int(Date().timeIntervalSince(date!))
+                let day = 24 * 60 * 60
+                let formatter = DateFormatter()
+                
+                if secondsAgo < day {
+                    formatter.dateFormat = "HH:mm"
+                    dateLabel.text = formatter.string(for: date)
+                } else {
+                    formatter.dateFormat = "dd MMM"
+                    dateLabel.text = formatter.string(for: date)
+                }
             }
             
         }

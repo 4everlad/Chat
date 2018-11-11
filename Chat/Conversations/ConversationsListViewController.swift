@@ -9,73 +9,34 @@
 import UIKit
 import MultipeerConnectivity
 
-class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate, MPCManagerDelegate, ConversationDelegate {
+class ConversationsListViewController: UIViewController, UITableViewDelegate, UITableViewDataSource, ThemesViewControllerDelegate, ConversationDelegate {
     
+    var communicationManager : CommunicationManager!
     
-    func printCoversation() {
-        if !conversations.isEmpty {
-            for (key,value) in conversations {
-                var lastMessage = value?.last
-                print("conversation = \(lastMessage?.text)")
-            }
-        } else {
-            print ("conversations is empty")
+    func updateTableView(){
+        DispatchQueue.main.async {
+            self.tableView.reloadData()
         }
-        
     }
     
-    
-    var conversations = [MCPeerID?: [Message]?]()
-    
-    func addConversation(peerID: MCPeerID, conversation: [Message]) {
-        conversations[peerID] = conversation
-    }
-
-    func foundPeer() {
-        print("foundPeer")
-        tableView.reloadData()
-    }
-
-    func lostPeer() {
-        print("lostPeer")
-        tableView.reloadData()
-    }
-    
-    func invitationWasReceived(fromPeer: String) {
-        print("invitationWasReceived")
-        self.appDelegate.mpcManager.invitationHandler(true, self.appDelegate.mpcManager.session)
-    }
-
-    func connectedWithPeer(peerID: MCPeerID) {
-        print("connectedWithPeer")
-    }
-    
-    
-    
-    let appDelegate = UIApplication.shared.delegate as! AppDelegate
-    
-    
-    
-//    var onlineConversations: [Conversation] {
-//        get {
-//            return conversations.filter { $0.online }
+//    func printCoversation() {
+//        if !conversations.isEmpty {
+//            for (key,value) in conversations {
+//                var lastMessage = value?.last
+//                print("conversation = \(lastMessage?.text)")
+//            }
+//        } else {
+//            print ("conversations is empty")
 //        }
-//    }
 //
-//    var historyConversations: [Conversation] {
-//        get {
-//            return conversations.filter { $0.online == false && $0.message != nil }
-//        }
 //    }
+    
     
     @IBOutlet weak var tableView: UITableView!
-    
-    
-    
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        let peersNumber = appDelegate.mpcManager.foundPeers.count
+        let peersNumber = communicationManager.userConversations.count
         print("peer: \(peersNumber)")
         return peersNumber
     }
@@ -93,35 +54,49 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         return "online"
     }
     
-    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
         
-        let peerID = appDelegate.mpcManager.foundPeers[indexPath.row]
-        let userName = appDelegate.mpcManager.peerDictionary[peerID]
-        cell.name = userName
-        if let messagesInfo = conversations[peerID] {
-            if let lastMessage = messagesInfo?.last {
-                cell.message = lastMessage.text
-                cell.date = lastMessage.date
-            }
-        }
+        var userIDs = Array(communicationManager.userConversations.keys)
+        let userID = userIDs[indexPath.row]
+        let conversation = communicationManager.userConversations[userID]
         
-        
-//        cell.name = conversation.name
-//        cell.message = conversation.message
-//        cell.date = Date()
-//        cell.online = conversation.online
-//        cell.hasUnreadMessages = conversation.hasUnreadMessages
+        cell.name = conversation?.name
+        cell.message = conversation?.message
+        cell.date = conversation?.date
+        cell.hasUnreadMessages = conversation!.hasUnreadMessages
+        cell.online = conversation!.online
         
         return cell
     }
     
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
+        var userIDs = Array(communicationManager.userConversations.keys)
+        let userID = userIDs[indexPath.row]
+        let conversation = communicationManager.userConversations[userID]
+        
+        let cellTitle = conversation?.name
+        
+        if let conversationVC  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConversationViewController") as? ConversationViewController {
+            conversationVC.cellTitle = cellTitle
+            conversationVC.delegate = communicationManager
+            conversationVC.userID = userID
+        
+            if let navigator = navigationController {
+                navigator.pushViewController(conversationVC, animated: true)
+//                conversations[selectedPeer] = nil
+            }
+        }
+        
+    }
+    
+    
 
     override func viewDidLoad() {
+        communicationManager = CommunicationManager()
         
-        appDelegate.mpcManager.browser.startBrowsingForPeers()
-        appDelegate.mpcManager.advertiser.startAdvertisingPeer()
+        communicationManager.delegate = self
         
         super.viewDidLoad()
         self.tableView.dataSource = self
@@ -131,9 +106,9 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         tableView.register(UINib(nibName: "ConversationTableViewCell", bundle: Bundle.main), forCellReuseIdentifier: "ConversationCell")
         // Do any additional setup after loading the view.
         
-        appDelegate.mpcManager.delegate = self
+        //appDelegate.mpcManager.delegate = self
         
-        printCoversation()
+//        printCoversation()
         
         
         
@@ -143,28 +118,7 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         super.viewDidAppear(animated)
         self.tableView.reloadData()
     }
-
     
-    
-    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-
-        let selectedPeer = appDelegate.mpcManager.foundPeers[indexPath.row]
-//        let peerID = selectedPeer.
-        let cellTitle = appDelegate.mpcManager.peerDictionary[selectedPeer]
-        
-        appDelegate.mpcManager.browser.invitePeer(selectedPeer, to: appDelegate.mpcManager.session, withContext: nil, timeout: 20)
-        
-        if let conversationVC  = UIStoryboard(name: "Main", bundle: nil).instantiateViewController(withIdentifier: "ConversationViewController") as? ConversationViewController {
-            conversationVC.cellTitle = cellTitle
-            conversationVC.delegate = self
-            
-            if let navigator = navigationController {
-                navigator.pushViewController(conversationVC, animated: true)
-                conversations[selectedPeer] = nil
-            }
-        }
-        
-    }
     
     func logThemeChanging(selectedTheme: UIColor) {
         
@@ -238,7 +192,11 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     //    }
 }
 
+//protocol ConversationDelegate {
+//    func addConversation(peerID: MCPeerID, conversation: [Message])
+//    func printCoversation()
+//}
+
 protocol ConversationDelegate {
-    func addConversation(peerID: MCPeerID, conversation: [Message])
-    func printCoversation()
+    func updateTableView()
 }
