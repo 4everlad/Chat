@@ -47,7 +47,7 @@ class ConversationViewController: UIViewController, UITableViewDelegate, UITable
         textField.resignFirstResponder()
         let messageToSend = textField.text!
         delegate?.sendMessage(string: messageToSend, toUserID: userID, completionHandler: nil)
-        let message = Message(text: messageToSend, mType: .to)
+        let message = MessageModel(text: messageToSend, mType: .to)
         delegate?.userConversations[userID!]?.messages!.append(message)
 //        messages.append(message)
 //        updateData()

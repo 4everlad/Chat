@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Message {
+class MessageModel {
     var text : String?
     
     enum messageType {

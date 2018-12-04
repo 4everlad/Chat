@@ -8,14 +8,16 @@
 
 import Foundation
 
-class Conversation {
+class ConversationModel {
     var name : String?
     var message : String?
     var date : Date?
     var online : Bool = false
     var hasUnreadMessages : Bool = false
+    // probably delete later
+    var userID : String?
     
-    var messages : [Message]?
+    var messages : [MessageModel]?
 //    init (name: String?, message: String?, date: Date?, online : Bool, hasUnreadMessages : Bool) {
 //        self.name = name
 //        self.message = message

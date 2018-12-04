@@ -64,7 +64,7 @@ UINavigationControllerDelegate, UITextViewDelegate {
     
     @IBAction func saveProfile(_ sender: Any) {
         
-        let data = User()
+        let data = UserModel()
         
         savingActivityIndicator.isHidden = false
         savingActivityIndicator.startAnimating()
@@ -78,7 +78,10 @@ UINavigationControllerDelegate, UITextViewDelegate {
         data.userInfo = userInfoTextView.text
         data.userImage = userImage.image
         
-        manager.saveData(data: data)
+//        manager.testUser()
+        manager.readDataForUsers()
+        
+//        manager.saveData(data: data)
         
 //        manager.insertData(data: data)
         
@@ -295,23 +298,25 @@ let info = convertFromUIImagePickerControllerInfoKeyDictionary(info)
         
         
         
-        let dataProfile = manager.readData()
+//        let dataProfile = manager.readData()
         
-        
-        if let image = dataProfile.userImage {
-            userImage.image = image
-        } else {
-            userImage.image = #imageLiteral(resourceName: "UserPlaceholder")
-        }
-//
-        if let name = dataProfile.userName {
-            userNameTextField.text = name
-        } else { userNameTextField.text = "Your Name" }
-//
-        if let info = dataProfile.userInfo {
-            userInfoTextView.text = info
-        } else { userInfoTextView.text = "Your Profile Information" }
+ // Data manager
+//        ***start***
+//        if let image = dataProfile.userImage {
+//            userImage.image = image
+//        } else {
+//            userImage.image = #imageLiteral(resourceName: "UserPlaceholder")
+//        }
+////
+//        if let name = dataProfile.userName {
+//            userNameTextField.text = name
+//        } else { userNameTextField.text = "Your Name" }
+////
+//        if let info = dataProfile.userInfo {
+//            userInfoTextView.text = info
+//        } else { userInfoTextView.text = "Your Profile Information" }
 // //       log.printMethod()
+//        ***end***
         
         print("editButton frame:\(editButton.layer.frame)")
         

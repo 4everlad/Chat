@@ -28,7 +28,7 @@ class CoreDataStack {
     
     private let managedObjectModelName = "Chat"
     private var _managedObjectModel : NSManagedObjectModel?
-    private var managedObjectModel : NSManagedObjectModel? {
+    public var managedObjectModel : NSManagedObjectModel? {
         get {
             if _managedObjectModel == nil {
                 guard let modelURL = Bundle.main.url(forResource: managedObjectModelName, withExtension: "momd") else {
@@ -68,7 +68,7 @@ class CoreDataStack {
     }
     
     private var _masterContext: NSManagedObjectContext?
-    private var masterContext: NSManagedObjectContext? {
+    public var masterContext: NSManagedObjectContext? {
         get {
             if _masterContext == nil {
                 let context = NSManagedObjectContext(concurrencyType: NSManagedObjectContextConcurrencyType.privateQueueConcurrencyType)
@@ -130,8 +130,6 @@ class CoreDataStack {
         }
     }
     
-    
-    
 
     public func performSave(context: NSManagedObjectContext, completionHandler: (() -> Void)? ) {
         if context.hasChanges {
@@ -154,80 +152,134 @@ class CoreDataStack {
         }
     }
     
-    func readUserData() -> AppUser? {
-
-        let data = AppUser.findOrInsertAppUser(in: masterContext!)
-        performSave(context: masterContext!, completionHandler: nil)
-        
-        return data
-
-    }
+//    func readUserData() -> AppUser? {
+//
+//        let data = AppUser.findOrInsertAppUser(in: masterContext!)
+//        performSave(context: masterContext!, completionHandler: nil)
+//        
+//        return data
+//
+//    }
     
     
-    func saveUserData(data: User) -> Bool {
-        guard let oldData = AppUser.findOrInsertAppUser(in: saveContext!) else {
-            return false
-        }
-        
-        oldData.userName = data.userName
-        oldData.userInfo = data.userInfo
-        if let image = data.userImage!.pngData() {
-            oldData.userImage = image
-        }
-        performSave(context: saveContext, completionHandler: nil)
-        
-        return true
-    }
+//    func saveUserData(data: UserModel) -> Bool {
+//        guard let oldData = AppUser.findOrInsertAppUser(in: saveContext!) else {
+//            return false
+//        }
+//
+//        oldData.name = data.userName
+//        oldData.info = data.userInfo
+//        if let image = data.userImage!.pngData() {
+//            oldData.image = image
+//        }
+//        performSave(context: saveContext, completionHandler: nil)
+//
+//        return true
+//    }
+//
+//    func readUsersData() -> [User]? {
+//
+//        let data = User.simpleFetchRequest(in: masterContext!)
+//        performSave(context: masterContext!, completionHandler: nil)
+//
+//        return data
+//    }
     
     
 }
 
-extension AppUser {
-    
-    static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
-        let templateName = "AppUser"
-        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
-            print(false, "No template with name \(templateName)!")
-            return nil
-        }
+//extension User {
+//
+//    static func fetchRequestUser(model: NSManagedObjectModel) -> NSFetchRequest<User>? {
+//        let templateName = "User"
+//        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<User> else {
+//            print(false, "No template with name \(templateName)!")
+//            return nil
+//        }
+//
+//        return fetchRequest
+//    }
+//
+//    func getUsers(in context: NSManagedObjectContext) -> [User]? {
+//
+//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+//            print("Model is not available in the context!")
+//            assert(false)
+//            return nil
+//        }
+//
+//        var users: [User]?
+//        guard let fetchRequest = User.fetchRequestUser(model: model) else {
+//            return nil
+//        }
+//
+//        do {
+//            let results = try context.fetch(fetchRequest)
+//            for user in results {
+//                users?.append(user)
+//            }
+//
+//        } catch {
+//            print("Failed to fetch AppUser:\(error)")
+//        }
+//
+//        print("")
+//
+//        return users
+//    }
+//
+//}
 
-        return fetchRequest
-    }
-    
-    static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-        guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else { print("cannot insert a record")
-            return nil
-        }
-        return appUser
-    }
-    
-    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
-        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
-            print("Model is not available in the context!")
-            assert(false)
-            return nil
-        }
-        
-        var appUser: AppUser?
-        guard let fetchRequest = AppUser.fetchRequestAppUser(model: model) else {
-            return nil
-        }
-        
-        do {
-            let results = try context.fetch(fetchRequest)
-            assert(results.count<2, "multiple appUsersFound!")
-            if let foundUser = results.first {
-                appUser = foundUser
-            }
-        } catch {
-            print("Failed to fetch AppUser:\(error)")
-        }
-        
-        if appUser == nil {
-            appUser = AppUser.insertAppUser(in: context)
-        }
-        
-        return appUser
-    }
+//extension AppUser {
+//
+//    static func fetchRequestAppUser(model: NSManagedObjectModel) -> NSFetchRequest<AppUser>? {
+//        let templateName = "AppUser"
+//        guard let fetchRequest = model.fetchRequestTemplate(forName: templateName) as? NSFetchRequest<AppUser> else {
+//            print(false, "No template with name \(templateName)!")
+//            return nil
+//        }
+//
+//        return fetchRequest
+//    }
+//
+//    static func insertAppUser(in context: NSManagedObjectContext) -> AppUser? {
+//        guard let appUser = NSEntityDescription.insertNewObject(forEntityName: "AppUser", into: context) as? AppUser else { print("cannot insert a record")
+//            return nil
+//        }
+//        return appUser
+//    }
+//
+//    static func findOrInsertAppUser(in context: NSManagedObjectContext) -> AppUser? {
+//        guard let model = context.persistentStoreCoordinator?.managedObjectModel else {
+//            print("Model is not available in the context!")
+//            assert(false)
+//            return nil
+//        }
+//
+//        var appUser: AppUser?
+//        guard let fetchRequest = AppUser.fetchRequestAppUser(model: model) else {
+//            return nil
+//        }
+//
+//        do {
+//            let results = try context.fetch(fetchRequest)
+//            assert(results.count<2, "multiple appUsersFound!")
+//            if let foundUser = results.first {
+//                appUser = foundUser
+//            }
+//        } catch {
+//            print("Failed to fetch AppUser:\(error)")
+//        }
+//
+//        if appUser == nil {
+//            appUser = AppUser.insertAppUser(in: context)
+//        }
+//
+//        return appUser
+//    }
+//
+//}
 
-}
+
+
+

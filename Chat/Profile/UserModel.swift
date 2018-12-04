@@ -8,7 +8,7 @@
 
 import Foundation
 
-class User {
+class UserModel {
     var userName : String?
     var userInfo : String?
     var userImage : UIImage?

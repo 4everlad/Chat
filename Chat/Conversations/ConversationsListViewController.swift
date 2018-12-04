@@ -13,6 +13,17 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     var communicationManager : CommunicationManager!
     
+    
+//    var onlineConversations : [ConversationsModel]
+    
+//    var onlineConversations : [ConversationModel]? {
+//        didSet {
+//            onlineConversations = communicationManager.
+//        }
+//    }
+    
+//    var 
+    
     func updateTableView(){
         DispatchQueue.main.async {
             self.tableView.reloadData()
@@ -36,9 +47,16 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
 
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
 
-        let peersNumber = communicationManager.userConversations.count
-        print("peer: \(peersNumber)")
-        return peersNumber
+//        let peersNumber = communicationManager.userConversations.count
+//        print("peer: \(peersNumber)")
+//        return peersNumber
+        
+        if section == 0 {
+            return communicationManager.onlineConversations.count
+        }
+        else {
+            return communicationManager.historyConversations.count
+        }
     }
     
     func tableView(_ tableView: UITableView, heightForRowAt indexPath: IndexPath) -> CGFloat {
@@ -46,20 +64,41 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     }
     
     func numberOfSections(in tableView: UITableView) -> Int {
-        return 1
+        return 2
     }
     
     func tableView(_ tableView: UITableView, titleForHeaderInSection section: Int) -> String? {
 
-        return "online"
+        if section == 0 {
+            return "Online" }
+        else if section == 1 {
+            return "History"
+        } else { return nil }
+//        return "online"
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
+        
         let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
         
-        var userIDs = Array(communicationManager.userConversations.keys)
-        let userID = userIDs[indexPath.row]
-        let conversation = communicationManager.userConversations[userID]
+        var conversation: ConversationModel!
+        
+        if indexPath.section == 0 {
+            var userIDs = Array(communicationManager.onlineConversations.keys)
+            let userID = userIDs[indexPath.row]
+            conversation = communicationManager.onlineConversations[userID]
+            
+        } else if indexPath.section == 1 {
+            var userIDs = Array(communicationManager.historyConversations.keys)
+            let userID = userIDs[indexPath.row]
+            conversation = communicationManager.historyConversations[userID]
+        }
+        
+//        let cell = tableView.dequeueReusableCell(withIdentifier: "ConversationCell", for: indexPath) as! ConversationTableViewCell
+        
+//        var userIDs = Array(communicationManager.userConversations.keys)
+//        let userID = userIDs[indexPath.row]
+//        let conversation = communicationManager.userConversations[userID]
         
         cell.name = conversation?.name
         cell.message = conversation?.message
@@ -96,6 +135,11 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     override func viewDidLoad() {
         communicationManager = CommunicationManager()
         
+       
+        
+//        self.storageManager.deleteConversations()
+        
+        
         communicationManager.delegate = self
         
         super.viewDidLoad()
@@ -113,6 +157,10 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
         
     }
+    
+//    override func viewWillDisappear(_ animated: Bool) {
+//
+//    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

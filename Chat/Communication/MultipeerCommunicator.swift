@@ -11,6 +11,8 @@ import MultipeerConnectivity
 
 class MultipeerCommunicator: NSObject, MCNearbyServiceBrowserDelegate, MCNearbyServiceAdvertiserDelegate, MCSessionDelegate, Communicator  {
     
+    static let shared = MultipeerCommunicator()
+    
     
     func sendMessage(string: String, toUserID: String, completionHandler : ((_ success : Bool,_ error : Error?) -> ())?) {
         

@@ -17,10 +17,18 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     //added from website
 //    var mpcManager: MultipeerCommunicator!
     
-    var log = LoggingLifeCycle()
+//    var log = LoggingLifeCycle()'
+    
+//    let stack = CoreDataStack.shared
+    
+    var storageManager : StorageManager!
+    
+    
 
     
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
+        
+        storageManager = StorageManager.sharedStorageManager
 //        log.logStateAndMethod()
         //added from website
 //        mpcManager = MultipeerCommunicator()
@@ -51,6 +59,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     }
 
     func applicationWillTerminate(_ application: UIApplication) {
+        
 //        LoggingLifeCycle.logStateAndMethod()
         // Called when the application is about to terminate. Save data if appropriate. See also applicationDidEnterBackground:.
     }
