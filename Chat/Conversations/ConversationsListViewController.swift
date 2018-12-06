@@ -13,6 +13,8 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
     
     var communicationManager : CommunicationManager!
     
+    let appDelegate = UIApplication.shared.delegate as! AppDelegate
+    
     
 //    var onlineConversations : [ConversationsModel]
     
@@ -158,9 +160,13 @@ class ConversationsListViewController: UIViewController, UITableViewDelegate, UI
         
     }
     
-//    override func viewWillDisappear(_ animated: Bool) {
-//
-//    }
+    override func viewWillDisappear(_ animated: Bool) {
+        super.viewWillDisappear(animated)
+        let onlineConversations = communicationManager.onlineConversations
+        appDelegate.storageManager.saveDataForConversations(for: onlineConversations)
+        let historyConversations = communicationManager.historyConversations
+        appDelegate.storageManager.saveDataForConversations(for: historyConversations)
+    }
     
     override func viewDidAppear(_ animated: Bool) {
         super.viewDidAppear(animated)

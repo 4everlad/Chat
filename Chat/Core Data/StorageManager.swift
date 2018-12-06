@@ -85,13 +85,13 @@ class StorageManager: CoreDataStack {
         return conversationData
     }
     
-    func saveDataForConversations(for conversations: [ConversationModel]) -> Bool {
+    func saveDataForConversations(for conversations: [String:ConversationModel]) -> Bool {
         
-        var newConversations = [ConversationModel]()
+        var newConversations = [String:ConversationModel]()
         if let oldConversations = Conversation.getConversations(in: saveCntxt) {
             if oldConversations.count != 0 {
-                for conversation in conversations {
-                    let userID = conversation.userID
+                for (userID, conversation) in conversations {
+//                    let userID = conversation.userID
                     //                let numberOfOldConverations = oldConversations.count
                     var conversationIsFound = false
                     for index in 0...oldConversations.count-1 {
@@ -106,22 +106,22 @@ class StorageManager: CoreDataStack {
                         }
                     }
                     if conversationIsFound == false {
-                        newConversations.append(conversation)
+                        newConversations[userID] = conversation
                     }
                 }
-                for conversation in newConversations {
+                for (userID, conversation) in newConversations {
                     let insertNewConversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation",
                                                                                     into: saveCntxt) as! Conversation
-                    insertNewConversation.userID = conversation.userID
+                    insertNewConversation.userID = userID
                     insertNewConversation.name = conversation.name
                     /// add the rest data
                 }
                 performSave(context: saveCntxt, completionHandler: nil)
             } else {
-                for conversation in conversations {
+                for (userID, conversation) in conversations {
                     let insertNewConversation = NSEntityDescription.insertNewObject(forEntityName: "Conversation",
                                                                                     into: saveCntxt) as! Conversation
-                    insertNewConversation.userID = conversation.userID
+                    insertNewConversation.userID = userID
                     insertNewConversation.name = conversation.name
                     /// add the rest data
                 }

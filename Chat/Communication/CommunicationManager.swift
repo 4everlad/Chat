@@ -42,6 +42,11 @@ class CommunicationManager: CommunicatorDelegate {
 //        self.storageManager.saveDataForConversations(for: conversations)
 //    }
     
+//    func saveDialogs() {
+//        
+//        onlineConversations
+//    }
+    
     func didFoundUser(UserID: String, userName: String) {
         
         if historyConversations[UserID] == nil {
@@ -52,8 +57,11 @@ class CommunicationManager: CommunicatorDelegate {
             onlineConversations[UserID] = conversation
             userConversations[UserID] = conversation
             delegate?.updateTableView()
-        } else {
+        } else if historyConversations[UserID] != nil {
             onlineConversations[UserID] = historyConversations[UserID]
+            onlineConversations[UserID]?.online = true
+            historyConversations.removeValue(forKey: UserID)
+            delegate?.updateTableView()
 //            historyConversations[UserID]!.online = true
         }
         
@@ -62,7 +70,9 @@ class CommunicationManager: CommunicatorDelegate {
     func didLostUser(userID: String) {
         
         historyConversations[userID] = onlineConversations[userID]
-        onlineConversations[userID] = nil
+        historyConversations[userID]?.online = false
+        onlineConversations.removeValue(forKey: userID)
+//        onlineConversations[userID] = nil
         userConversations[userID] = nil
         delegate?.updateTableView()
         print ("Lost User")
@@ -93,9 +103,7 @@ class CommunicationManager: CommunicatorDelegate {
         communicator.sendMessage(string: string, toUserID: toUserID, completionHandler: completionHandler)
     }
     
-//    deinit {
-//        self.storageManager.saveDataForConversations(for: <#T##[ConversationModel]#>)
-//    }
+
     
     init() {
         
